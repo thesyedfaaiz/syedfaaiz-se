@@ -48,8 +48,8 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
             )}
           </div>
 
-          <div className="border-t border-ink-200 bg-ink-950 p-6 text-white sm:p-10 lg:border-l lg:border-t-0 lg:p-12 dark:border-white/10 dark:bg-black/30">
-            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-300">
+          <div className="border-t border-ink-200 bg-ink-50 p-6 text-ink-950 sm:p-10 lg:border-l lg:border-t-0 lg:p-12 dark:border-white/10 dark:bg-black/30 dark:text-white">
+            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-700 dark:text-brand-300">
               Product system
             </span>
             <strong className="mt-4 block text-2xl font-semibold tracking-tight">
@@ -57,12 +57,12 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
             </strong>
             <div className="mt-10 grid gap-3">
               {project.categories.map((category, index) => (
-                <div key={category} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] p-4">
-                  <span className="text-xs font-black text-brand-300">
+                <div key={category} className="flex items-center gap-3 rounded-2xl border border-ink-200 bg-white p-4 dark:border-white/10 dark:bg-white/[0.05]">
+                  <span className="text-xs font-black text-brand-700 dark:text-brand-300">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm font-semibold">{category}</span>
-                  <ArrowRight className="ml-auto size-4 text-white/50" />
+                  <ArrowRight className="ml-auto size-4 text-ink-400 dark:text-white/50" />
                 </div>
               ))}
             </div>

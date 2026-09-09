@@ -216,11 +216,11 @@ function Portfolio() {
         </div>
 
         <Section id="ai" kicker="05 / AI & Automation" title="Intelligence connected to action.">
-          <div className="overflow-hidden rounded-[2rem] bg-ink-950 p-6 text-white shadow-soft sm:p-8 lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-12 lg:p-12 dark:border dark:border-white/10">
+          <div className="overflow-hidden rounded-[2rem] border border-ink-200 bg-white p-6 text-ink-950 shadow-soft sm:p-8 lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-12 lg:p-12 dark:border-white/10 dark:bg-ink-950 dark:text-white">
             <div className="max-w-xl">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-300">A practical AI system</span>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-300">A practical AI system</span>
               <h3 className="mt-4 text-2xl font-semibold tracking-[-0.035em] sm:text-3xl">Input becomes a verified outcome—not a dead-end response.</h3>
-              <p className="mt-5 text-sm leading-7 text-ink-300 sm:text-base">My work connects models to data, tools, APIs and operational workflows: document extraction, RAG, vector search, agents, sentiment analysis, generated communication and voice automation.</p>
+              <p className="mt-5 text-sm leading-7 text-ink-600 sm:text-base dark:text-ink-300">My work connects models to data, tools, APIs and operational workflows: document extraction, RAG, vector search, agents, sentiment analysis, generated communication and voice automation.</p>
             </div>
             <div className="mt-8 grid gap-3 lg:mt-0">
               {[
@@ -230,13 +230,13 @@ function Portfolio() {
                 ["Action", "Message · update"],
                 ["Result", "Verified outcome"],
               ].map(([title, description], index) => (
-                <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.05] p-4" key={title}>
-                  <span className="text-[10px] font-black text-brand-300">{String(index + 1).padStart(2, "0")}</span>
+                <div className="flex items-center gap-4 rounded-2xl border border-ink-200 bg-ink-50 p-4 dark:border-white/10 dark:bg-white/[0.05]" key={title}>
+                  <span className="text-[10px] font-black text-brand-700 dark:text-brand-300">{String(index + 1).padStart(2, "0")}</span>
                   <div>
                     <strong className="block text-sm">{title}</strong>
-                    <small className="mt-0.5 block text-xs text-ink-400">{description}</small>
+                    <small className="mt-0.5 block text-xs text-ink-500 dark:text-ink-400">{description}</small>
                   </div>
-                  {index < 4 && <ArrowRight className="ml-auto size-4 text-white/40" />}
+                  {index < 4 && <ArrowRight className="ml-auto size-4 text-ink-400 dark:text-white/40" />}
                 </div>
               ))}
             </div>
