@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowDown,
@@ -27,7 +27,7 @@ import { Section, Tag } from "./components/ui";
 import { capabilities, certifications, education, experiences, skillGroups } from "./data/content";
 import { projects } from "./data/projects";
 
-const SystemScene = lazy(() => import("./components/SystemScene"));
+import SystemScene from "./components/SystemScene";
 
 const iconMap = {
   layers: Layers3,
@@ -49,24 +49,22 @@ function Portfolio() {
       <Navigation />
       <main>
         <section className="relative overflow-hidden border-b border-ink-200/80 dark:border-white/10">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(113,113,122,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(113,113,122,0.08)_1px,transparent_1px)] bg-[size:34px_34px] [mask-image:linear-gradient(to_bottom,black,transparent_85%)] dark:opacity-40" />
-          <div className="absolute left-1/2 top-0 h-[480px] w-[760px] -translate-x-1/2 rounded-full bg-brand-200/50 blur-3xl dark:bg-brand-500/10" />
-
-          <div className="relative mx-auto grid min-h-[calc(100svh-76px)] w-full max-w-7xl items-center gap-10 px-4 py-14 sm:min-h-[calc(100svh-84px)] sm:px-6 sm:py-18 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-20">
-            <div className="relative z-10 max-w-3xl">
+          <div className="relative flex items-start justify-center pt-3 pb-8 sm:min-h-[92vh] sm:items-center sm:pt-0 sm:pb-0">
+            <div className="relative z-10 mx-auto w-full max-w-5xl px-5 text-center sm:px-6">
+              <SystemScene />
 
               <motion.h1
-                className="text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.06em] sm:text-6xl lg:text-7xl xl:text-8xl"
+                className="mx-auto mt-5 max-w-3xl text-balance text-[1.65rem] font-extrabold leading-snug tracking-tight sm:mt-6 sm:text-3xl md:text-4xl"
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.08, duration: 0.8 }}
               >
-                Syed Faizan
-                <span className="mt-1 block text-brand-600 dark:text-brand-300">Hussain Hashmi</span>
+                Syed Faizan{" "}
+                <span className="text-brand-600 dark:text-brand-300">Hussain Hashmi</span>
               </motion.h1>
 
               <motion.p
-                className="mt-7 max-w-2xl text-base leading-8 text-ink-600 sm:text-lg dark:text-ink-300"
+                className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-ink-600 sm:text-base dark:text-ink-300"
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.24 }}
@@ -75,7 +73,7 @@ function Portfolio() {
               </motion.p>
 
               <motion.div
-                className="mt-8 flex flex-wrap items-center gap-3"
+                className="mx-auto mt-5 flex w-full max-w-xs flex-col items-stretch justify-center gap-2.5 sm:mt-8 sm:max-w-none sm:flex-row sm:items-center sm:gap-3"
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.36 }}
@@ -88,32 +86,17 @@ function Portfolio() {
                   View experience
                   <ArrowDown className="size-4" />
                 </a>
-                <a className={secondaryButton} href="https://github.com/thesyedfaaiz" target="_blank" rel="noreferrer" aria-label="GitHub">
-                  <Github className="size-[18px]" />
-                </a>
-                <a className={secondaryButton} href="https://linkedin.com/in/thesyedfaaiz" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-                  <Linkedin className="size-[18px]" />
-                </a>
+                <div className="grid grid-cols-2 gap-2.5 sm:flex sm:gap-3">
+                  <a className={secondaryButton} href="https://github.com/thesyedfaaiz" target="_blank" rel="noreferrer" aria-label="GitHub">
+                    <Github className="size-[18px]" />
+                  </a>
+                  <a className={secondaryButton} href="https://linkedin.com/in/thesyedfaaiz" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                    <Linkedin className="size-[18px]" />
+                  </a>
+                </div>
               </motion.div>
 
-              <motion.div
-                className="mt-8 flex flex-wrap gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.52 }}
-              >
-                {["Full-Stack Engineering", "AI Applications", "SaaS Architecture", "Automation", "Cloud Deployment"].map((label) => (
-                  <span key={label} className="rounded-full border border-ink-200/80 bg-white/60 px-3 py-1.5 text-[11px] font-semibold text-ink-500 backdrop-blur dark:border-white/10 dark:bg-white/[0.04] dark:text-ink-400">
-                    {label}
-                  </span>
-                ))}
-              </motion.div>
-            </div>
-
-            <div className="w-full lg:pl-4 xl:pl-8">
-              <Suspense fallback={<div className="min-h-[520px] w-full animate-pulse rounded-[2rem] bg-ink-100 dark:bg-white/[0.04]" />}>
-                <SystemScene />
-              </Suspense>
+              <div className="h-4 sm:h-14" />
             </div>
           </div>
         </section>

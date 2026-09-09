@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Github, Linkedin, Menu, Moon, Sun, X } from "lucide-react";
 
@@ -52,6 +53,15 @@ export default function Navigation() {
     window.addEventListener("resize", close);
     return () => window.removeEventListener("resize", close);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink-200/70 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-ink-950/80">
@@ -135,16 +145,27 @@ export default function Navigation() {
         </div>
       </nav>
 
-      <AnimatePresence>
+      {createPortal(<AnimatePresence>
         {open && (
           <motion.div
-            id="mobile-navigation"
-            className="border-t border-ink-200/70 bg-white/95 px-4 py-4 shadow-xl backdrop-blur-xl sm:px-6 lg:hidden dark:border-white/10 dark:bg-ink-950/95"
+            className="fixed inset-x-0 bottom-0 top-[77px] z-40 font-sans sm:top-[85px] lg:hidden"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
           >
+            <button
+              type="button"
+              className="absolute inset-0 bg-black/20"
+              onClick={() => setOpen(false)}
+              aria-label="Close navigation menu"
+              tabIndex={-1}
+            />
+            <nav
+              id="mobile-navigation"
+              aria-label="Mobile navigation"
+              className="relative max-h-full overflow-y-auto overscroll-contain border-b border-ink-200/70 bg-white/95 px-4 py-4 shadow-xl backdrop-blur-xl sm:px-6 dark:border-white/10 dark:bg-ink-950/95"
+            >
             <div className="mx-auto grid max-w-7xl gap-1">
               {links.map(([id, label]) => (
                 <a
@@ -171,9 +192,10 @@ export default function Navigation() {
                 </a>
               </div>
             </div>
+            </nav>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>, document.body)}
     </header>
   );
 }
