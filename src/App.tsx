@@ -49,7 +49,7 @@ function Portfolio() {
       <Navigation />
       <main>
         <section className="relative overflow-hidden border-b border-ink-200/80 dark:border-white/10">
-          <div className="relative flex items-start justify-center pt-3 pb-8 sm:min-h-[92vh] sm:items-center sm:pt-0 sm:pb-0">
+          <div className="relative flex items-start justify-center pt-6 pb-8 sm:min-h-[92vh] sm:items-center sm:pt-8 sm:pb-0">
             <div className="relative z-10 mx-auto w-full max-w-5xl px-5 text-center sm:px-6">
               <SystemScene />
 

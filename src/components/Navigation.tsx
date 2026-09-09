@@ -65,7 +65,7 @@ export default function Navigation() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-ink-200/70 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-ink-950/80">
-      <nav className="mx-auto flex h-[76px] w-full max-w-7xl items-center gap-3 px-4 sm:h-[84px] sm:px-6 lg:px-8">
+      <nav className="mx-auto flex h-[64px] w-full max-w-7xl items-center gap-3 px-4 sm:h-[72px] sm:px-6 lg:px-8">
         <a
           href="#about"
           className="group mr-auto flex min-w-0 items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-ink-950"
@@ -73,7 +73,7 @@ export default function Navigation() {
         >
           <img
             src="/logo.svg"
-            className="h-14 w-12 shrink-0 object-contain sm:h-16 sm:w-14"
+            className="h-12 w-10 shrink-0 object-contain"
             alt="Syed Faizan logo"
           />
           <span className="hidden min-w-0 sm:block">
@@ -148,7 +148,7 @@ export default function Navigation() {
       {createPortal(<AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-x-0 bottom-0 top-[77px] z-40 font-sans sm:top-[85px] lg:hidden"
+            className="fixed inset-x-0 bottom-0 top-[65px] z-40 font-sans sm:top-[73px] lg:hidden"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
