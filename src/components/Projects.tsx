@@ -43,7 +43,7 @@ export default function Projects() {
                   </div>
                 </div>
                 <a
-                  href={`#/case-study/${project.id}`}
+                  href={`/case-study/${project.id}`}
                   className="grid size-11 shrink-0 place-items-center rounded-full border border-ink-200 bg-white text-ink-700 transition group-hover:border-brand-300 group-hover:bg-brand-50 group-hover:text-brand-700 dark:border-white/10 dark:bg-white/[0.04] dark:text-ink-200 dark:group-hover:border-brand-400/30 dark:group-hover:bg-brand-500/10 dark:group-hover:text-brand-200"
                   aria-label={`Open ${project.name} case study`}
                 >
@@ -72,7 +72,7 @@ export default function Projects() {
                 </div>
                 <a
                   className="inline-flex items-center gap-2 text-sm font-bold text-ink-950 transition hover:text-brand-700 dark:text-white dark:hover:text-brand-200"
-                  href={`#/case-study/${project.id}`}
+                  href={`/case-study/${project.id}`}
                 >
                   Read case study
                   <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
@@ -86,7 +86,7 @@ export default function Projects() {
       <div className="mt-8 flex justify-center sm:mt-10">
         <a
           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink-950 px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:bg-white dark:text-ink-950 dark:hover:bg-brand-200 dark:focus-visible:ring-offset-ink-950"
-          href="#/case-studies"
+          href="/case-studies"
         >
           View all case studies
           <ArrowRight className="size-4" />

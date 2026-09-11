@@ -25,7 +25,7 @@ export function Section({
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="mb-10 max-w-3xl sm:mb-14 lg:mb-16">
+      <div className="w-full mb-10 max-w-3xl sm:mb-14 lg:mb-16">
         <span className="mb-3 block text-xs font-bold uppercase tracking-[0.22em] text-brand-600 dark:text-brand-300">
           {kicker}
         </span>

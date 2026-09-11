@@ -59,7 +59,7 @@ export default function AllCaseStudies() {
           <AnimatePresence mode="popLayout">
             {shown.map((project, index) => (
               <motion.a
-                href={`#/case-study/${project.id}`}
+                href={`/case-study/${project.id}`}
                 layout
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}

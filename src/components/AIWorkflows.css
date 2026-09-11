@@ -1,0 +1,603 @@
+.ai-flow {
+  --flow-accent: #8062cb;
+  --flow-surface: #faf9fc;
+  --flow-border: #e3ddec;
+  --flow-text: #262330;
+  --flow-muted: #747080;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.dark .ai-flow {
+  --flow-accent: #b9a0ff;
+  --flow-surface: #0e0d12;
+  --flow-border: #302b3c;
+  --flow-text: #f5f3fa;
+  --flow-muted: #9b94a8;
+}
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.ai-flow__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2.75rem, 7vw, 5rem);
+  align-items: start;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.ai-flow__copy,
+.ai-flow__visual {
+  min-width: 0;
+  width: 100%;
+}
+
+/*
+ * Keep readable paragraph widths on smaller screens.
+ * The left content doesn't need to stretch across the
+ * entire screen.
+ */
+.ai-flow__copy {
+  max-width: 38rem;
+}
+
+/* =========================================================
+   DIAGRAM CONTAINER
+   ========================================================= */
+
+.ai-flow__visual {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ai-flow__diagram {
+  position: relative;
+
+  /*
+   * Fluid width:
+   * - can shrink all the way down
+   * - never exceeds parent
+   * - desktop max handled later
+   */
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgb(153 117 223 / 4%),
+      transparent 65%
+    );
+}
+
+/*
+ * SVGs must be block elements.
+ *
+ * Inline SVGs otherwise behave similarly to inline text and
+ * reserve baseline space underneath.
+ */
+.ai-flow__svg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+
+  overflow: visible;
+}
+
+/* =========================================================
+   MOBILE DIAGRAM
+   ========================================================= */
+
+.ai-flow__desktop {
+  display: none;
+}
+
+.ai-flow__mobile {
+  display: block;
+
+  /*
+   * No fixed max-width: 360px.
+   *
+   * This was one of the main reasons the diagram looked like
+   * a narrow fixed object in the middle of mobile screens.
+   */
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+/* =========================================================
+   SVG VISUAL STYLES
+   ========================================================= */
+
+.ai-flow__track {
+  fill: none;
+  stroke: var(--flow-border);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.ai-flow__signal {
+  fill: none;
+  stroke: var(--flow-accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 0.12 0.88;
+
+  /*
+   * Keeps line thickness visually consistent when SVG
+   * scales across screen sizes.
+   */
+  vector-effect: non-scaling-stroke;
+}
+
+.ai-flow__ring {
+  fill: var(--flow-surface);
+  stroke: var(--flow-border);
+  stroke-width: 1.5;
+
+  /*
+   * The circle scales with the diagram while stroke stays
+   * visually crisp.
+   */
+  vector-effect: non-scaling-stroke;
+}
+
+.ai-flow__icon {
+  color: var(--flow-accent);
+}
+
+.ai-flow__title {
+  fill: var(--flow-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ai-flow__detail {
+  fill: var(--flow-muted);
+  font-size: 10px;
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 379px) {
+  .ai-flow__layout {
+    gap: 2.5rem;
+  }
+
+  /*
+   * Give very narrow devices a little breathing room while
+   * still using essentially the entire available width.
+   */
+  .ai-flow__diagram {
+    width: min(100%, 21rem);
+    margin-inline: auto;
+  }
+}
+
+/* =========================================================
+   LARGE MOBILE / SMALL TABLET
+   ========================================================= */
+
+@media (min-width: 480px) {
+  /*
+   * Vertical layout still works best here, but letting it
+   * become too wide would make the circles huge.
+   */
+  .ai-flow__diagram {
+    width: min(100%, 31rem);
+    margin-inline: auto;
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 640px) {
+  .ai-flow__copy {
+    max-width: 42rem;
+  }
+
+  /*
+   * Stay vertical on tablets.
+   *
+   * Previously desktop diagram switched on at 640px, which
+   * is too early for many tablet/container widths.
+   */
+  .ai-flow__diagram {
+    width: min(100%, 34rem);
+  }
+}
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 1024px) {
+  .ai-flow__layout {
+    /*
+     * Much more balanced than 0.75fr / 1.25fr.
+     *
+     * Left still has enough room for copy while diagram has
+     * a slightly larger visual zone.
+     */
+    grid-template-columns:
+      minmax(0, 0.92fr)
+      minmax(0, 1.08fr);
+
+    gap: clamp(3rem, 5vw, 5.5rem);
+  }
+
+  .ai-flow__copy {
+    max-width: 35rem;
+  }
+
+  .ai-flow__visual {
+    justify-content: flex-end;
+  }
+
+  .ai-flow__mobile {
+    display: none;
+  }
+
+  .ai-flow__desktop {
+    display: block;
+  }
+
+  /*
+   * This is the key desktop sizing rule.
+   *
+   * The SVG grows with the viewport but stops before
+   * becoming visually dominant.
+   */
+  .ai-flow__diagram {
+    width: clamp(
+      29rem,
+      39vw,
+      35.5rem
+    );
+
+    max-width: 100%;
+    margin-inline: 0;
+    margin-left: auto;
+  }
+}
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1280px) {
+  .ai-flow__layout {
+    grid-template-columns:
+      minmax(0, 0.95fr)
+      minmax(0, 1.05fr);
+  }
+
+  .ai-flow__diagram {
+    /*
+     * Never allow the diagram to become enormous on
+     * 1440 / 1600 / ultrawide screens.
+     */
+    width: clamp(
+      31rem,
+      37vw,
+      36rem
+    );
+  }
+}
+
+/* =========================================================
+   VERY LARGE / ULTRAWIDE
+   ========================================================= */
+
+@media (min-width: 1600px) {
+  .ai-flow__diagram {
+    width: 36rem;
+  }
+}
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+.ai-flow [data-animate] {
+  animation-duration: 10s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.ai-flow[data-running="false"] [data-animate] {
+  animation-play-state: paused;
+}
+
+/* Stage 0 */
+
+.ai-flow__signal--0 {
+  animation-name: flow-travel-0;
+}
+
+@keyframes flow-travel-0 {
+  0%,
+  5% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  19% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  22%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+.ai-flow__ring--0 {
+  animation-name: flow-ring-0;
+}
+
+@keyframes flow-ring-0 {
+  0%,
+  3% {
+    stroke: var(--flow-border);
+  }
+
+  10%,
+  20% {
+    stroke: var(--flow-accent);
+  }
+
+  28%,
+  100% {
+    stroke: var(--flow-border);
+  }
+}
+
+/* Stage 1 */
+
+.ai-flow__signal--1 {
+  animation-name: flow-travel-1;
+}
+
+@keyframes flow-travel-1 {
+  0%,
+  20% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+
+  23% {
+    opacity: 1;
+  }
+
+  34% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  37%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+.ai-flow__ring--1 {
+  animation-name: flow-ring-1;
+}
+
+@keyframes flow-ring-1 {
+  0%,
+  18% {
+    stroke: var(--flow-border);
+  }
+
+  25%,
+  35% {
+    stroke: var(--flow-accent);
+  }
+
+  43%,
+  100% {
+    stroke: var(--flow-border);
+  }
+}
+
+/* Stage 2 */
+
+.ai-flow__signal--2 {
+  animation-name: flow-travel-2;
+}
+
+@keyframes flow-travel-2 {
+  0%,
+  35% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+
+  38% {
+    opacity: 1;
+  }
+
+  49% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  52%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+.ai-flow__ring--2 {
+  animation-name: flow-ring-2;
+}
+
+@keyframes flow-ring-2 {
+  0%,
+  33% {
+    stroke: var(--flow-border);
+  }
+
+  40%,
+  50% {
+    stroke: var(--flow-accent);
+  }
+
+  58%,
+  100% {
+    stroke: var(--flow-border);
+  }
+}
+
+/* Stage 3 */
+
+.ai-flow__signal--3 {
+  animation-name: flow-travel-3;
+}
+
+@keyframes flow-travel-3 {
+  0%,
+  50% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+
+  53% {
+    opacity: 1;
+  }
+
+  64% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  67%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+.ai-flow__ring--3 {
+  animation-name: flow-ring-3;
+}
+
+@keyframes flow-ring-3 {
+  0%,
+  48% {
+    stroke: var(--flow-border);
+  }
+
+  55%,
+  65% {
+    stroke: var(--flow-accent);
+  }
+
+  73%,
+  100% {
+    stroke: var(--flow-border);
+  }
+}
+
+/* Stage 4 */
+
+.ai-flow__signal--4 {
+  animation-name: flow-travel-4;
+}
+
+@keyframes flow-travel-4 {
+  0%,
+  65% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+
+  68% {
+    opacity: 1;
+  }
+
+  79% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  82%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+.ai-flow__ring--4 {
+  animation-name: flow-ring-4;
+}
+
+@keyframes flow-ring-4 {
+  0%,
+  63% {
+    stroke: var(--flow-border);
+  }
+
+  70%,
+  80% {
+    stroke: var(--flow-accent);
+  }
+
+  88%,
+  100% {
+    stroke: var(--flow-border);
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+.ai-flow[data-reduced="true"] [data-animate] {
+  animation: none;
+}
+
+.ai-flow[data-reduced="true"] .ai-flow__signal {
+  display: none;
+}
+
+.ai-flow[data-reduced="true"] .ai-flow__ring {
+  stroke: var(--flow-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-flow [data-animate] {
+    animation: none !important;
+  }
+
+  .ai-flow__signal {
+    display: none;
+  }
+
+  .ai-flow__ring {
+    stroke: var(--flow-accent);
+  }
+}

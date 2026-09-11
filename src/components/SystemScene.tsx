@@ -56,10 +56,12 @@ export default function SystemScene() {
     <div className="relative isolate mx-auto w-full max-w-[360px] sm:w-[440px] sm:max-w-none md:w-[540px] lg:w-[600px]" aria-label="Product engineering expertise">
       <div className="relative z-10 mx-auto w-[min(72vw,260px)] sm:w-[280px] md:w-[320px] lg:w-[360px]">
         <img
-          src="/body.webp"
+          src="/images/syed-faaiz-engineering-portrait.webp"
+          srcSet="/images/syed-faaiz-engineering-portrait-320.webp 320w, /images/syed-faaiz-engineering-portrait.webp 640w"
+          sizes="(max-width: 640px) 72vw, 360px"
           alt="Syed Faizan Hussain Hashmi"
-          width={2008}
-          height={2188}
+          width={640}
+          height={853}
           className="relative z-10 mx-auto h-auto w-full select-none"
           draggable={false}
           loading="eager"

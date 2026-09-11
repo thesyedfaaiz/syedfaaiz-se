@@ -9,7 +9,7 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-20">
         <a
           className="mb-10 inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-4 py-2 text-sm font-semibold text-ink-700 shadow-sm transition hover:border-brand-300 hover:text-brand-700 sm:mb-14 dark:border-white/10 dark:bg-white/[0.05] dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"
-          href="#/case-studies"
+          href="/case-studies"
         >
           <ArrowLeft className="size-4" />
           All case studies
@@ -129,7 +129,7 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
         </section>
 
         <div className="mt-10 flex justify-end">
-          <a className="inline-flex items-center gap-2 text-sm font-bold text-ink-900 hover:text-brand-700 dark:text-white dark:hover:text-brand-200" href="#/case-studies">
+          <a className="inline-flex items-center gap-2 text-sm font-bold text-ink-900 hover:text-brand-700 dark:text-white dark:hover:text-brand-200" href="/case-studies">
             Explore all case studies
             <ArrowRight className="size-4" />
           </a>

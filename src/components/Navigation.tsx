@@ -67,7 +67,7 @@ export default function Navigation() {
     <header className="sticky top-0 z-50 border-b border-ink-200/70 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-ink-950/80">
       <nav className="mx-auto flex h-[64px] w-full max-w-7xl items-center gap-3 px-4 sm:h-[72px] sm:px-6 lg:px-8">
         <a
-          href="#about"
+          href="/#about"
           className="group mr-auto flex min-w-0 items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-ink-950"
           aria-label="Syed Faizan — go to about section"
         >
@@ -94,7 +94,7 @@ export default function Navigation() {
                   ? "bg-ink-950 text-white dark:bg-white dark:text-ink-950"
                   : "text-ink-600 hover:bg-ink-100 hover:text-ink-950 dark:text-ink-300 dark:hover:bg-white/10 dark:hover:text-white"
               }`}
-              href={`#${id}`}
+              href={`/#${id}`}
               key={id}
             >
               {label}
@@ -169,7 +169,7 @@ export default function Navigation() {
             <div className="mx-auto grid max-w-7xl gap-1">
               {links.map(([id, label]) => (
                 <a
-                  href={`#${id}`}
+                  href={`/#${id}`}
                   onClick={() => setOpen(false)}
                   className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
                     active === id

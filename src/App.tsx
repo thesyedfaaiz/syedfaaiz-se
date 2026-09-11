@@ -1,3 +1,5 @@
+import { RouteMetadata } from "./seo/RouteMetadata";
+import AIWorkflows from "./components/AIWorkflows";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -24,10 +26,12 @@ import AllCaseStudies from "./components/AllCaseStudies";
 import ProjectCaseStudy from "./components/ProjectCaseStudy";
 import CopyEmail from "./components/CopyEmail";
 import { Section, Tag } from "./components/ui";
-import { capabilities, certifications, education, experiences, skillGroups } from "./data/content";
+import { certifications, education, experiences, skillGroups } from "./data/content";
 import { projects } from "./data/projects";
 
 import SystemScene from "./components/SystemScene";
+import NotFoundPage from "./components/NotFoundPage";
+import AboutSyedFaaiz from "./components/AboutSyedFaaiz";
 
 const iconMap = {
   layers: Layers3,
@@ -100,6 +104,8 @@ function Portfolio() {
             </div>
           </div>
         </section>
+
+        <AboutSyedFaaiz />
 
         <section className="border-b border-ink-200/80 bg-white/70 dark:border-white/10 dark:bg-white/[0.02]" aria-label="Professional snapshot">
           <div className="mx-auto grid w-full max-w-7xl grid-cols-2 px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
@@ -194,57 +200,10 @@ function Portfolio() {
         <Section id="projects" kicker="03 / Selected case studies" title="Systems, not just screens.">
           <Projects />
         </Section>
+        <AIWorkflows />
 
         <div className="border-y border-ink-200/80 bg-white/50 dark:border-white/10 dark:bg-white/[0.015]">
-          <Section id="capabilities" kicker="04 / Capabilities" title="What I can take from idea to production.">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {capabilities.map(([title, description], index) => {
-                const Icon = [Layers3, BrainCircuit, Workflow, Code2, Database, Plug][index];
-                return (
-                  <article key={title} className="group min-h-[240px] rounded-[1.5rem] border border-ink-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand-300 sm:p-7 dark:border-white/10 dark:bg-ink-900/70 dark:hover:border-brand-400/40">
-                    <div className="flex items-center justify-between">
-                      <span className="grid size-11 place-items-center rounded-2xl bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-200"><Icon className="size-5" /></span>
-                      <span className="text-xs font-black text-ink-300 dark:text-ink-600">0{index + 1}</span>
-                    </div>
-                    <h3 className="mt-8 text-xl font-semibold tracking-tight">{title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-ink-600 dark:text-ink-300">{description}</p>
-                  </article>
-                );
-              })}
-            </div>
-          </Section>
-        </div>
-
-        <Section id="ai" kicker="05 / AI & Automation" title="Intelligence connected to action.">
-          <div className="overflow-hidden rounded-[2rem] border border-ink-200 bg-white p-6 text-ink-950 shadow-soft sm:p-8 lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-12 lg:p-12 dark:border-white/10 dark:bg-ink-950 dark:text-white">
-            <div className="max-w-xl">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-700 dark:text-brand-300">A practical AI system</span>
-              <h3 className="mt-4 text-2xl font-semibold tracking-[-0.035em] sm:text-3xl">Input becomes a verified outcome—not a dead-end response.</h3>
-              <p className="mt-5 text-sm leading-7 text-ink-600 sm:text-base dark:text-ink-300">My work connects models to data, tools, APIs and operational workflows: document extraction, RAG, vector search, agents, sentiment analysis, generated communication and voice automation.</p>
-            </div>
-            <div className="mt-8 grid gap-3 lg:mt-0">
-              {[
-                ["Input", "Documents · intent"],
-                ["AI processing", "RAG · extraction"],
-                ["Tools / APIs", "Search · actions"],
-                ["Action", "Message · update"],
-                ["Result", "Verified outcome"],
-              ].map(([title, description], index) => (
-                <div className="flex items-center gap-4 rounded-2xl border border-ink-200 bg-ink-50 p-4 dark:border-white/10 dark:bg-white/[0.05]" key={title}>
-                  <span className="text-[10px] font-black text-brand-700 dark:text-brand-300">{String(index + 1).padStart(2, "0")}</span>
-                  <div>
-                    <strong className="block text-sm">{title}</strong>
-                    <small className="mt-0.5 block text-xs text-ink-500 dark:text-ink-400">{description}</small>
-                  </div>
-                  {index < 4 && <ArrowRight className="ml-auto size-4 text-ink-400 dark:text-white/40" />}
-                </div>
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        <div className="border-y border-ink-200/80 bg-white/50 dark:border-white/10 dark:bg-white/[0.015]">
-          <Section id="skills" kicker="06 / Toolkit" title="A stack organized around outcomes.">
+          <Section id="skills" kicker="07 / Toolkit" title="A stack organized around outcomes.">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {skillGroups.map((group) => {
                 const Icon = iconMap[group.icon as keyof typeof iconMap];
@@ -264,7 +223,7 @@ function Portfolio() {
           </Section>
         </div>
 
-        <Section id="education" kicker="07 / Foundation" title="Education & continuous learning.">
+        <Section id="education" kicker="08 / Foundation" title="Education & continuous learning.">
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
             <div>
               {education.map((item, index) => {
@@ -316,7 +275,7 @@ function Portfolio() {
         </Section>
 
         <div className="border-t border-ink-200/80 bg-white/50 dark:border-white/10 dark:bg-white/[0.015]">
-          <Section id="contact" kicker="08 / Let’s connect" title="Let's build something that matters.">
+          <Section id="contact" kicker="09 / Let’s connect" title="Let's build something that matters.">
             <div className="grid gap-8 rounded-[2rem] border border-ink-200 bg-white p-6 shadow-soft sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10 dark:border-white/10 dark:bg-ink-900/70">
               <div>
                 <p className="max-w-2xl text-base leading-8 text-ink-600 sm:text-lg dark:text-ink-300">Open to software engineering opportunities, SaaS development, AI application development, product engineering and technical collaborations.</p>
@@ -348,7 +307,7 @@ function Footer() {
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
           <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-            <a href="#about" className="shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-ink-950" aria-label="Syed Faizan — go to about section">
+            <a href="/#about" className="shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-ink-950" aria-label="Syed Faizan — go to about section">
               <img src="/logo.svg" className="h-24 w-20 object-contain sm:h-28 sm:w-24" alt="Syed Faizan logo" />
             </a>
             <div>
@@ -361,13 +320,13 @@ function Footer() {
           <div className="flex flex-wrap gap-2 lg:justify-end">
             <a href="https://github.com/thesyedfaaiz" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Github className="size-4" />GitHub</a>
             <a href="https://linkedin.com/in/thesyedfaaiz" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Linkedin className="size-4" />LinkedIn</a>
-            <a href="#top" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-ink-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 dark:bg-white dark:text-ink-950 dark:hover:bg-brand-200">Back to top <ArrowRight className="size-4 -rotate-45" /></a>
+            <a href="/#top" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-ink-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 dark:bg-white dark:text-ink-950 dark:hover:bg-brand-200">Back to top <ArrowRight className="size-4 -rotate-45" /></a>
           </div>
         </div>
 
         <div className="mt-8 flex flex-col gap-2 border-t border-ink-200 pt-6 text-xs text-ink-400 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:text-ink-500">
-          <span>React · TypeScript · AI · SaaS</span>
-          <span>Designed and built as a responsive Tailwind system.</span>
+          <span></span>
+          <span><a href="https://syedfaaiz.com" className="hover:underline">Visit Syed Faaiz: personal website</a></span>
         </div>
       </div>
     </footer>
@@ -375,41 +334,17 @@ function Footer() {
 }
 
 function App() {
-  const [hash, setHash] = useState(location.hash);
-
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
   useEffect(() => {
-    const change = () => {
-      setHash(location.hash);
-      if (location.hash.startsWith("#/")) window.scrollTo(0, 0);
-    };
-    window.addEventListener("hashchange", change);
-    return () => window.removeEventListener("hashchange", change);
+    if (location.hash.startsWith("#/case-stud")) location.replace(location.hash.slice(1));
   }, []);
-
-  const id = hash.match(/^#\/case-study\/(.+)$/)?.[1];
-  const project = projects.find((item) => item.id === id);
-
-  if (project) {
-    return (
-      <div className="min-h-screen bg-ink-50 font-sans text-ink-950 dark:bg-ink-950 dark:text-white">
-        <Navigation />
-        <ProjectCaseStudy project={project} />
-        <Footer />
-      </div>
-    );
-  }
-
-  if (hash === "#/case-studies") {
-    return (
-      <div className="min-h-screen bg-ink-50 font-sans text-ink-950 dark:bg-ink-950 dark:text-white">
-        <Navigation />
-        <AllCaseStudies />
-        <Footer />
-      </div>
-    );
-  }
-
-  return <Portfolio />;
+  const id = path.match(/^\/case-study\/([^/]+)$/)?.[1];
+  const project = projects.find(item => item.id === id);
+  let content;
+  if (project) content = <><Navigation /><ProjectCaseStudy project={project} /><Footer /></>;
+  else if (path === "/case-studies") content = <><Navigation /><AllCaseStudies /><Footer /></>;
+  else if (path === "/") content = <Portfolio />;
+  else content = <NotFoundPage />;
+  return <><RouteMetadata path={path} />{content}</>;
 }
-
 export default App;
