@@ -25,6 +25,7 @@ import Projects from "./components/Projects";
 import AllCaseStudies from "./components/AllCaseStudies";
 import ProjectCaseStudy from "./components/ProjectCaseStudy";
 import CopyEmail from "./components/CopyEmail";
+import PublicFooter from "./components/PublicFooter";
 import { Section, Tag } from "./components/ui";
 import { certifications, education, experiences, skillGroups } from "./data/content";
 import { projects } from "./data/projects";
@@ -302,37 +303,8 @@ function Portfolio() {
 }
 
 function Footer() {
-  return (
-    <footer className="border-t border-ink-200 bg-white dark:border-white/10 dark:bg-black/20">
-      <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-          <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-            <a href="/#about" className="shrink-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-ink-950" aria-label="Syed Faizan — go to about section">
-              <img src="/logo.svg" className="h-24 w-20 object-contain sm:h-28 sm:w-24" alt="Syed Faizan logo" />
-            </a>
-            <div>
-              <p className="text-2xl font-semibold tracking-[-0.035em] text-ink-950 dark:text-white">Syed Faizan Hussain Hashmi</p>
-              <p className="mt-1 text-sm font-semibold text-brand-700 dark:text-brand-200">Software Engineer · AI & SaaS Builder</p>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-ink-500 dark:text-ink-400">Building reliable product systems across interfaces, APIs, AI workflows, automation and cloud delivery.</p>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-2 lg:justify-end">
-            <a href="https://github.com/thesyedfaaiz" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Github className="size-4" />GitHub</a>
-            <a href="https://linkedin.com/in/thesyedfaaiz" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Linkedin className="size-4" />LinkedIn</a>
-            <a href="/#top" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-ink-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 dark:bg-white dark:text-ink-950 dark:hover:bg-brand-200">Back to top <ArrowRight className="size-4 -rotate-45" /></a>
-          </div>
-        </div>
-
-        <div className="mt-8 flex flex-col gap-2 border-t border-ink-200 pt-6 text-xs text-ink-400 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:text-ink-500">
-          <span></span>
-          <span><a href="https://syedfaaiz.com" className="hover:underline">Visit Syed Faaiz: personal website</a></span>
-        </div>
-      </div>
-    </footer>
-  );
+  return <PublicFooter />;
 }
-
 function App() {
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
   useEffect(() => {
