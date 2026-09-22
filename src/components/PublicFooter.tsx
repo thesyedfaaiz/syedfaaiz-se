@@ -15,7 +15,7 @@ const products = [
   ["Syed Faaiz", "https://syedfaaiz.com", true, "https://syedfaaiz.com/logo.svg"],
   ["Syed Faaiz IDP", "https://auth.syedfaaiz.com", true, "https://auth.syedfaaiz.com/logo.svg"],
   ["Nodes", "https://nodes.syedfaaiz.com", true, "https://nodes.syedfaaiz.com/logo.svg"],
-  ["For Muslim", "https://muslim.syedfaaiz.com", false, "https://muslim.syedfaaiz.com/logo.svg"],
+  ["For Muslim", "https://muslim.syedfaaiz.com", true, "https://muslim.syedfaaiz.com/logo.svg"],
   ["Zaffixx", "https://zaffixx.com", false, "https://zaffixx.com/logo.svg"],
   ["Xcod", "https://xcod.ai", false, "https://xcod.ai/logo.svg"],
   ["Skillionaire", "https://skillionaire.com", false, "https://skillionaire.com/logo.svg"],

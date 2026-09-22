@@ -64,8 +64,8 @@ function Portfolio() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.08, duration: 0.8 }}
               >
-                Syed Faizan{" "}
-                <span className="text-brand-600 dark:text-brand-300">Hussain Hashmi</span>
+                Syed Faaiz{" "}
+                <span className="text-brand-600 dark:text-brand-300">— Software Engineer</span>
               </motion.h1>
 
               <motion.p
@@ -74,7 +74,7 @@ function Portfolio() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.24 }}
               >
-                Building AI-assisted web applications, workflows, dashboards, automation systems, and scalable SaaS products from interface to cloud delivery.
+                Syed Faizan Hussain Hashmi · Building AI-assisted web applications, workflows, dashboards, automation systems, and scalable SaaS products from interface to cloud delivery.
               </motion.p>
 
               <motion.div
