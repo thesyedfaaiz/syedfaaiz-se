@@ -46,7 +46,7 @@ export function prerenderSeo(site: SeoSite): Plugin {
   return {
     name: "public-page-html",
     enforce: "post",
-    configResolved(config) { production = config.mode === "production" && (!env["VERCEL_ENV"] || env["VERCEL_ENV"] === "production") && (!env["CONTEXT"] || env["CONTEXT"] === "production") && env["SEO_NOINDEX"] !== "true"; },
+    configResolved(config) { production = config.mode === "production" && (!env["DEPLOYMENT_ENV"] || env["DEPLOYMENT_ENV"] === "production") && env["SEO_NOINDEX"] !== "true"; },
     generateBundle(_options, bundle) {
       const asset = bundle["index.html"];
       if (!asset || asset.type !== "asset") throw new Error("Missing Vite HTML output");
