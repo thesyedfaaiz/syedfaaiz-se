@@ -51,6 +51,10 @@ jobs:
           context: .
           platforms: linux/arm64
           push: false
+          build-args: |
+            VITE_ZAFFIXX_TRACKER_URL=https://zaffixx-cdn.syedfaaiz.com/tracker.js
+            VITE_ZAFFIXX_COLLECT_ENDPOINT=https://zaffixx-api.syedfaaiz.com/api/v1/collect
+            VITE_ZAFFIXX_TRACKING_KEY=${{ vars.ZAFFIX_TRACKING_KEY }}
 
       - name: Build and publish Docker image
         if: github.event_name == 'push'
@@ -59,6 +63,10 @@ jobs:
           context: .
           platforms: linux/arm64
           push: true
+          build-args: |
+            VITE_ZAFFIXX_TRACKER_URL=https://zaffixx-cdn.syedfaaiz.com/tracker.js
+            VITE_ZAFFIXX_COLLECT_ENDPOINT=https://zaffixx-api.syedfaaiz.com/api/v1/collect
+            VITE_ZAFFIXX_TRACKING_KEY=${{ vars.ZAFFIX_TRACKING_KEY }}
           tags: |
             ghcr.io/thesyedfaaiz/syedfaaiz-se:${{ github.sha }}
             ghcr.io/thesyedfaaiz/syedfaaiz-se:main
