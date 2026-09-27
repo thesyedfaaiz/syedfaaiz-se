@@ -1,6 +1,4 @@
-// Production-only, explicitly configured analytics. No development tracker defaults.
-import { site } from "./site";
-
+// Production-only, explicitly configured analytics. SEO and route lists do not gate this.
 export type AnalyticsScript = {
   id: string;
   src: string;
@@ -21,13 +19,15 @@ function httpsUrl(value: unknown): string | null {
   }
 }
 
+function trackingKey(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
+}
+
 export function planAnalyticsScripts(input: {
   production: boolean;
-  pathname: string;
-  publicPaths: string[];
   env: AnalyticsEnv;
 }): AnalyticsScript[] {
-  if (!input.production || !input.publicPaths.includes(input.pathname)) return [];
+  if (!input.production) return [];
   const scripts: AnalyticsScript[] = [];
   const ga = input.env["VITE_GA_MEASUREMENT_ID"];
   if (typeof ga === "string" && /^G-[A-Z0-9]+$/.test(ga)) {
@@ -39,9 +39,7 @@ export function planAnalyticsScripts(input: {
   const generic = httpsUrl(input.env["VITE_TRACKING_SCRIPT_URL"]);
   if (generic) scripts.push({ id: "site-analytics", src: generic });
 
-  const key = typeof input.env["VITE_ZAFFIXX_TRACKING_KEY"] === "string"
-    ? input.env["VITE_ZAFFIXX_TRACKING_KEY"].trim()
-    : "";
+  const key = trackingKey(input.env["VITE_ZAFFIXX_TRACKING_KEY"]);
   const trackerUrl = httpsUrl(input.env["VITE_ZAFFIXX_TRACKER_URL"]);
   const endpoint = httpsUrl(input.env["VITE_ZAFFIXX_COLLECT_ENDPOINT"]);
   if (key && trackerUrl && endpoint) {
@@ -60,8 +58,8 @@ export function planAnalyticsScripts(input: {
 function applyAttributes(script: HTMLScriptElement, attributes: Record<string, string> | undefined): void {
   if (!attributes) return;
   for (const [name, value] of Object.entries(attributes)) {
-    if (name === "data-site") script.dataset.site = value;
-    else if (name === "data-endpoint") script.dataset.endpoint = value;
+    if (name === "data-site") script.dataset["site"] = value;
+    else if (name === "data-endpoint") script.dataset["endpoint"] = value;
     else script.setAttribute(name, value);
   }
 }
@@ -79,9 +77,7 @@ export function installAnalyticsScripts(doc: Document, scripts: AnalyticsScript[
 }
 
 const env = import.meta.env;
-const indexed = typeof document !== "undefined"
-  && document.querySelector('meta[name="site-indexing"]')?.getAttribute("content") === "index";
-if (env?.PROD && indexed && typeof document !== "undefined") {
+if (env?.PROD && typeof document !== "undefined") {
   const ga = env["VITE_GA_MEASUREMENT_ID"];
   if (typeof ga === "string" && /^G-[A-Z0-9]+$/.test(ga)) {
     const analytics = window as typeof window & { dataLayer?: unknown[] };
@@ -92,8 +88,6 @@ if (env?.PROD && indexed && typeof document !== "undefined") {
   }
   installAnalyticsScripts(document, planAnalyticsScripts({
     production: true,
-    pathname: window.location.pathname,
-    publicPaths: site.pages.map(page => page.path),
     env
   }));
 }
