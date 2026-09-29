@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "@thesyedfaaiz/ui/tailwind.css";
+
+@source "../node_modules/@thesyedfaaiz/ui/dist";
 
 @custom-variant dark (&:where(.dark, .dark *));
 

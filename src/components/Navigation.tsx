@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { AppLauncher, PLATFORM_PERSON_SOCIALS, applyThemeToElement, darkTheme, lightTheme } from "@thesyedfaaiz/ui";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Github, Linkedin, Menu, Moon, Sun, X } from "lucide-react";
+
+const githubUrl = PLATFORM_PERSON_SOCIALS.find((social) => social.id === "github")!.url;
+const linkedInUrl = PLATFORM_PERSON_SOCIALS.find((social) => social.id === "linkedin")!.url;
 
 const links = [
   ["about", "About"],
@@ -23,9 +27,10 @@ export default function Navigation() {
     return document.documentElement.classList.contains("dark");
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
     localStorage.setItem("theme", dark ? "dark" : "light");
+    applyThemeToElement(document.documentElement, dark ? darkTheme : lightTheme);
   }, [dark]);
 
   useEffect(() => {
@@ -112,8 +117,9 @@ export default function Navigation() {
           >
             {dark ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />}
           </button>
+          <AppLauncher />
           <a
-            href="https://github.com/thesyedfaaiz"
+            href={githubUrl}
             target="_blank"
             rel="noreferrer"
             className={`${controlClass} hidden sm:grid`}
@@ -123,7 +129,7 @@ export default function Navigation() {
             <Github className="size-[18px]" />
           </a>
           <a
-            href="https://linkedin.com/in/thesyedfaaiz"
+            href={linkedInUrl}
             target="_blank"
             rel="noreferrer"
             className={`${controlClass} hidden sm:grid`}
@@ -182,11 +188,11 @@ export default function Navigation() {
                 </a>
               ))}
               <div className="mt-2 flex gap-2 border-t border-ink-200 pt-3 dark:border-white/10 sm:hidden">
-                <a href="https://github.com/thesyedfaaiz" target="_blank" rel="noreferrer" className={`${controlClass} flex-1 rounded-2xl`}>
+                <a href={githubUrl} target="_blank" rel="noreferrer" className={`${controlClass} flex-1 rounded-2xl`}>
                   <Github className="size-[18px]" />
                   <span className="sr-only">GitHub</span>
                 </a>
-                <a href="https://linkedin.com/in/thesyedfaaiz" target="_blank" rel="noreferrer" className={`${controlClass} flex-1 rounded-2xl`}>
+                <a href={linkedInUrl} target="_blank" rel="noreferrer" className={`${controlClass} flex-1 rounded-2xl`}>
                   <Linkedin className="size-[18px]" />
                   <span className="sr-only">LinkedIn</span>
                 </a>

@@ -1,3 +1,4 @@
+import { BrandLogo, PLATFORM_KIND_KICKER, getAppSocials, getCurrentProduct, getPersonSocials, getPlatformGroups, getProductUrl, type PlatformSocialId } from "@thesyedfaaiz/ui";
 import {
   ArrowUpRight,
   AtSign,
@@ -8,67 +9,59 @@ import {
   Music2,
   Youtube,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { useMemo } from "react";
 import "./PublicFooter.css";
 
-const products = [
-  ["Syed Faaiz", "https://syedfaaiz.com", true, "https://syedfaaiz.com/logo.svg"],
-  ["Syed Faaiz IDP", "https://auth.syedfaaiz.com", true, "https://auth.syedfaaiz.com/logo.svg"],
-  ["Nodes", "https://nodes.syedfaaiz.com", true, "https://nodes.syedfaaiz.com/logo.svg"],
-  ["For Muslim", "https://muslim.syedfaaiz.com", true, "https://muslim.syedfaaiz.com/logo.svg"],
-  ["Zaffixx", "https://zaffixx.syedfaaiz.com", false, "https://zaffixx.syedfaaiz.com/logo.svg"],
-  ["Xcod", "https://xcod.ai", false, "https://xcod.ai/logo.svg"],
-  ["Skillionaire", "https://skillionaire.com", false, "https://skillionaire.com/logo.svg"],
-] as const;
-
-const socials = [
-  ["GitHub", "https://github.com/thesyedfaaiz", Github],
-  ["LinkedIn", "https://www.linkedin.com/in/thesyedfaaiz/", Linkedin],
-  ["YouTube", "https://www.youtube.com/@thesyedfaaiz", Youtube],
-  ["Instagram", "https://www.instagram.com/thesyedfaaiz/", Instagram],
-  ["Facebook", "https://www.facebook.com/thesyedfaaiz/", Facebook],
-  ["Threads", "https://www.threads.net/@thesyedfaaiz", AtSign],
-  ["TikTok", "https://www.tiktok.com/@thesyedfaaiz", Music2],
-] as const;
-const appSocials = [
-  ["Engineering Instagram", Instagram],
-  ["Engineering YouTube", Youtube],
-  ["Engineering Facebook", Facebook],
-] as const;
+const socialIcons: Record<PlatformSocialId, LucideIcon> = {
+  github: Github,
+  linkedin: Linkedin,
+  youtube: Youtube,
+  instagram: Instagram,
+  facebook: Facebook,
+  threads: AtSign,
+  tiktok: Music2,
+};
 
 export default function PublicFooter() {
   const year = useMemo(() => new Date().getFullYear(), []);
+  const current = getCurrentProduct();
+  const personSocials = getPersonSocials();
+  const appSocials = getAppSocials(current.id);
+  const groups = getPlatformGroups();
 
   return (
     <footer className="se-footer">
       <div className="se-footer__inner">
         <div className="se-footer__grid">
           <div>
-            <a href="https://se.syedfaaiz.com" className="se-footer__brand">
-              <img src="/logo.svg" alt="" />
+            <a href={getProductUrl("se")} className="se-footer__brand">
+              <BrandLogo brand="se" className="se-footer__logo" title="Syed Faaiz Engineering" />
               <span>Syed Faaiz Engineering</span>
             </a>
             <p className="se-footer__description">
               Software engineering, AI applications, and product systems built from interface to cloud.
             </p>
-            <p className="se-footer__kicker">A Syed Faaiz product</p>
+            <p className="se-footer__kicker">{PLATFORM_KIND_KICKER[current.kind]}</p>
             <div className="se-footer__socials">
-              <div className="se-footer__social-group">
-                <h2>Engineering socials</h2>
-                <div>
-                  {appSocials.map(([label, Icon]) => (
-                    <span key={label} className="se-footer__social-pending" data-tooltip="Coming soon" tabIndex={0} aria-label={`${label} — coming soon`}><Icon aria-hidden="true" /></span>
-                  ))}
+              {appSocials.length > 0 && (
+                <div className="se-footer__social-group">
+                  <h2>Engineering socials</h2>
+                  <div>
+                    {appSocials.map((social) => {
+                      const Icon = socialIcons[social.id];
+                      return <a key={social.id} href={social.url} target="_blank" rel="noreferrer" aria-label={social.name} title={social.name}><Icon aria-hidden="true" /></a>;
+                    })}
+                  </div>
                 </div>
-              </div>
+              )}
               <div className="se-footer__social-group">
                 <h2>Syed Faaiz socials</h2>
                 <div>
-                  {socials.map(([label, href, Icon]) => (
-                    <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} title={label}>
-                      <Icon aria-hidden="true" />
-                    </a>
-                  ))}
+                  {personSocials.map((social) => {
+                    const Icon = socialIcons[social.id];
+                    return <a key={social.id} href={social.url} target="_blank" rel="noreferrer" aria-label={social.name} title={social.name}><Icon aria-hidden="true" /></a>;
+                  })}
                 </div>
               </div>
             </div>
@@ -79,41 +72,40 @@ export default function PublicFooter() {
             <ul>
               <li><a href="/">Portfolio</a></li>
               <li><a href="/case-studies">Case studies</a></li>
-              <li><a href="https://syedfaaiz.com/about">About Syed Faaiz</a></li>
+              <li><a href={getProductUrl("com") + "/about"}>About Syed Faaiz</a></li>
             </ul>
           </nav>
 
           <nav aria-label="Syed Faaiz platform">
-            <h2>Syed Faaiz platform</h2>
-            <ul className="se-footer__products">
-              {products.map(([name, href, available, image]) => (
-                <li key={name}>
-                  {available ? (
-                    <a href={href} className="se-footer__product">
-                      <img src={image} alt="" />
-                      <span>{name}</span>
-                      <ArrowUpRight aria-hidden="true" />
-                    </a>
-                  ) : (
-                    <span
-                      className="se-footer__product se-footer__product--pending"
-                      data-tooltip="Coming soon"
-                      tabIndex={0}
-                      aria-label={`${name} — coming soon`}
-                    >
-                      <img src={image} alt="" />
-                      <span>{name}</span>
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
+            {groups.map((group) => (
+              <div key={group.kind}>
+                <h2>{group.label}</h2>
+                <ul className="se-footer__products">
+                  {group.apps.map((app) => (
+                    <li key={app.id}>
+                      {app.isAvailable ? (
+                        <a href={app.url} className="se-footer__product">
+                          <BrandLogo brand={app.id} className="se-footer__logo" title={app.name} />
+                          <span>{app.name}</span>
+                          <ArrowUpRight aria-hidden="true" />
+                        </a>
+                      ) : (
+                        <span className="se-footer__product se-footer__product--pending" data-tooltip="Coming soon" tabIndex={0} aria-label={`${app.name} — coming soon`}>
+                          <BrandLogo brand={app.id} className="se-footer__logo" title={app.name} />
+                          <span>{app.name}</span>
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </nav>
         </div>
 
         <div className="se-footer__bottom">
           <span>© {year} Syed Faaiz Engineering</span>
-          <span>Building useful things for the web.</span>
+          <span>{PLATFORM_KIND_KICKER[current.kind]}</span>
         </div>
       </div>
     </footer>

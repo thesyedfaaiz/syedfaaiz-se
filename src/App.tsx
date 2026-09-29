@@ -1,4 +1,5 @@
 import { RouteMetadata } from "./seo/RouteMetadata";
+import { PLATFORM_PERSON_SOCIALS } from "@thesyedfaaiz/ui";
 import AIWorkflows from "./components/AIWorkflows";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -33,6 +34,9 @@ import { projects } from "./data/projects";
 import SystemScene from "./components/SystemScene";
 import NotFoundPage from "./components/NotFoundPage";
 import AboutSyedFaaiz from "./components/AboutSyedFaaiz";
+
+const githubUrl = PLATFORM_PERSON_SOCIALS.find((social) => social.id === "github")!.url;
+const linkedInUrl = PLATFORM_PERSON_SOCIALS.find((social) => social.id === "linkedin")!.url;
 
 const iconMap = {
   layers: Layers3,
@@ -92,10 +96,10 @@ function Portfolio() {
                   <ArrowDown className="size-4" />
                 </a>
                 <div className="grid grid-cols-2 gap-2.5 sm:flex sm:gap-3">
-                  <a className={secondaryButton} href="https://github.com/thesyedfaaiz" target="_blank" rel="noreferrer" aria-label="GitHub">
+                  <a className={secondaryButton} href={githubUrl} target="_blank" rel="noreferrer" aria-label="GitHub">
                     <Github className="size-[18px]" />
                   </a>
-                  <a className={secondaryButton} href="https://linkedin.com/in/thesyedfaaiz" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                  <a className={secondaryButton} href={linkedInUrl} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                     <Linkedin className="size-[18px]" />
                   </a>
                 </div>
@@ -290,8 +294,8 @@ function Portfolio() {
               <div className="grid content-start gap-2">
                 <a href="tel:+923211170210" className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Phone className="size-4" />+92 321 1170210</a>
                 <span className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 dark:border-white/10 dark:text-ink-200"><MapPin className="size-4" />Lahore, Pakistan</span>
-                <a href="https://github.com/thesyedfaaiz" target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Github className="size-4" />github.com/thesyedfaaiz</a>
-                <a href="https://linkedin.com/in/thesyedfaaiz" target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Linkedin className="size-4" />linkedin.com/in/thesyedfaaiz</a>
+                <a href={githubUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Github className="size-4" />github.com/thesyedfaaiz</a>
+                <a href={linkedInUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Linkedin className="size-4" />linkedin.com/in/thesyedfaaiz</a>
               </div>
             </div>
           </Section>

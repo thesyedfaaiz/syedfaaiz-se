@@ -29,6 +29,8 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build application
         run: npm run build
@@ -51,7 +53,10 @@ jobs:
           context: .
           platforms: linux/arm64
           push: false
+          secrets: |
+            NODE_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
           build-args: |
+            VITE_APP_ID=se
             VITE_ZAFFIXX_TRACKER_URL=https://zaffixx-cdn.syedfaaiz.com/tracker.js
             VITE_ZAFFIXX_COLLECT_ENDPOINT=https://zaffixx-api.syedfaaiz.com/api/v1/collect
             VITE_ZAFFIXX_TRACKING_KEY=${{ vars.ZAFFIX_TRACKING_KEY }}
@@ -63,7 +68,10 @@ jobs:
           context: .
           platforms: linux/arm64
           push: true
+          secrets: |
+            NODE_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
           build-args: |
+            VITE_APP_ID=se
             VITE_ZAFFIXX_TRACKER_URL=https://zaffixx-cdn.syedfaaiz.com/tracker.js
             VITE_ZAFFIXX_COLLECT_ENDPOINT=https://zaffixx-api.syedfaaiz.com/api/v1/collect
             VITE_ZAFFIXX_TRACKING_KEY=${{ vars.ZAFFIX_TRACKING_KEY }}

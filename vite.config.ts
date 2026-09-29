@@ -7,4 +7,5 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [prerenderSeo(site), react(), tailwindcss()],
   build: { target: "es2022" },
+  server: { port: 5173 },
 });
