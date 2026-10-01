@@ -24,8 +24,8 @@
 .se-footer__kicker { margin: 1rem 0 0; color: #c4b5fd; font-size: .625rem; letter-spacing: .16em; text-transform: uppercase; }
 .se-footer nav { padding-top: .5rem; }
 .se-footer nav > div + div { margin-top: 1.75rem; }
-.se-footer ul { display: grid; gap: .9rem; margin: 1.5rem 0 0; padding: 0; list-style: none; font-size: .875rem; }
-.se-footer li a, .se-footer li > span { display: inline-flex; align-items: center; gap: .65rem; line-height: 1.5; }
+.se-footer ul { display: grid; gap: .9rem; margin: 1.25rem 0 0; padding: 0; list-style: none; font-size: .875rem; }
+.se-footer li a, .se-footer li > span { display: flex; align-items: center; gap: .65rem; width: 100%; min-height: 1.75rem; line-height: 1.35; transition: color .15s ease; }
 .se-footer__socials { display: grid; gap: 1.25rem; margin-top: 2rem; }
 .se-footer__socials h2 { margin-bottom: .65rem; }
 .se-footer__social-group > div { display: flex; flex-wrap: wrap; gap: .5rem; margin-left: -.35rem; }
@@ -33,7 +33,7 @@
 .se-footer__social-pending { position: relative; cursor: help; }
 .se-footer__social-pending::after { content: attr(data-tooltip); position: absolute; left: 50%; bottom: calc(100% + .5rem); z-index: 2; padding: .35rem .6rem; border-radius: 999px; background: #27272a; color: #fff; font-size: .7rem; line-height: 1; white-space: nowrap; opacity: 0; pointer-events: none; transform: translate(-50%, .25rem); transition: opacity .15s, transform .15s; }
 .se-footer__social-pending:hover::after, .se-footer__social-pending:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
-.se-footer__products { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 1rem 1.5rem !important; }
+.se-footer__products { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; column-gap: 1.5rem !important; row-gap: .85rem !important; align-items: start; }
 .se-footer__product .se-footer__logo,
 .se-footer__product .se-footer__logo svg {
   width: 1.75rem;
@@ -42,7 +42,7 @@
   object-fit: contain;
   opacity: 1;
 }
-.se-footer__product > svg { width: .8rem; height: .8rem; flex-shrink: 0; opacity: .75; }
+.se-footer a.se-footer__product:hover { color: #fafafa; }
 .se-footer__product--pending { position: relative; cursor: help; opacity: .65; }
 .se-footer__product--pending::after { content: attr(data-tooltip); position: absolute; left: 50%; bottom: calc(100% + .5rem); z-index: 2; padding: .35rem .6rem; border-radius: 999px; background: #27272a; color: #fff; font-size: .7rem; line-height: 1; white-space: nowrap; opacity: 0; pointer-events: none; transform: translate(-50%, .25rem); transition: opacity .15s, transform .15s; }
 .se-footer__product--pending:hover::after, .se-footer__product--pending:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }

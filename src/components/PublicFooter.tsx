@@ -1,6 +1,5 @@
 import { BrandLogo, PLATFORM_KIND_KICKER, getAppSocials, getCurrentProduct, getPersonSocials, getPlatformGroups, getProductUrl, type PlatformSocialId } from "@thesyedfaaiz/ui";
 import {
-  ArrowUpRight,
   AtSign,
   Facebook,
   Github,
@@ -87,7 +86,6 @@ export default function PublicFooter() {
                         <a href={app.url} className="se-footer__product">
                           <BrandLogo brand={app.id} className="se-footer__logo" title={app.name} />
                           <span>{app.name}</span>
-                          <ArrowUpRight aria-hidden="true" />
                         </a>
                       ) : (
                         <span className="se-footer__product se-footer__product--pending" data-tooltip="Coming soon" tabIndex={0} aria-label={`${app.name} — coming soon`}>
