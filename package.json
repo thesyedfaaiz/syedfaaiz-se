@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@thesyedfaaiz/ui": "0.2.0",
+    "@thesyedfaaiz/ui": "0.3.0",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.468.0",
     "react": "^19.1.1",
