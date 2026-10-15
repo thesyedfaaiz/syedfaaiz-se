@@ -1,20 +1,12 @@
 .ai-flow {
-  --flow-accent: #8062cb;
-  --flow-surface: #faf9fc;
-  --flow-border: #e3ddec;
-  --flow-text: #262330;
-  --flow-muted: #747080;
+  --flow-accent: var(--color-primary);
+  --flow-surface: var(--color-card);
+  --flow-border: var(--color-border-strong);
+  --flow-text: var(--color-fg-strong);
+  --flow-muted: var(--color-fg-muted);
 
   width: 100%;
   min-width: 0;
-}
-
-.dark .ai-flow {
-  --flow-accent: #b9a0ff;
-  --flow-surface: #0e0d12;
-  --flow-border: #302b3c;
-  --flow-text: #f5f3fa;
-  --flow-muted: #9b94a8;
 }
 
 /* =========================================================
@@ -72,7 +64,7 @@
   background:
     radial-gradient(
       ellipse at center,
-      rgb(153 117 223 / 4%),
+      color-mix(in srgb, var(--flow-accent) 4%, transparent),
       transparent 65%
     );
 }

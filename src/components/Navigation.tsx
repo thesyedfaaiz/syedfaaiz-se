@@ -1,12 +1,11 @@
-import { AppLauncher, PLATFORM_PERSON_SOCIALS, applyThemeToElement, darkTheme, lightTheme } from "@thesyedfaaiz/ui";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { AppLauncher, PLATFORM_PERSON_SOCIALS, ThemeChooser } from "@thesyedfaaiz/ui";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { Github, Linkedin, Menu, Moon, Sun, X } from "lucide-react";
+import { Github, Linkedin, Menu, X } from "lucide-react";
 
 const githubUrl = PLATFORM_PERSON_SOCIALS.find((social) => social.id === "github")!.url;
 const linkedInUrl = PLATFORM_PERSON_SOCIALS.find((social) => social.id === "linkedin")!.url;
-
 const links = [
   ["about", "About"],
   ["experience", "Experience"],
@@ -16,192 +15,89 @@ const links = [
   ["contact", "Contact"],
 ];
 
-const controlClass =
-  "grid size-10 place-items-center rounded-full border border-ink-200 bg-white/80 text-ink-700 shadow-sm backdrop-blur transition hover:border-brand-300 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:border-white/10 dark:bg-white/[0.06] dark:text-ink-200 dark:hover:border-brand-400/50 dark:hover:text-brand-200 dark:focus-visible:ring-offset-ink-950";
+const iconLink = "grid size-9 place-items-center rounded-lg border border-border bg-card text-fg-muted transition hover:bg-card-muted hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg";
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("about");
-  const [dark, setDark] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return document.documentElement.classList.contains("dark");
-  });
-
-  useLayoutEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("theme", dark ? "dark" : "light");
-    applyThemeToElement(document.documentElement, dark ? darkTheme : lightTheme);
-  }, [dark]);
+  const [active, setActive] = useState(() => window.location.pathname === "/" ? "about" : "");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
+      (entries) => entries.forEach((entry) => { if (entry.isIntersecting) setActive(entry.target.id); }),
       { rootMargin: "-35% 0px -55%" },
     );
-
     links.forEach(([id]) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     });
-
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    const close = () => {
-      if (window.innerWidth >= 1024) setOpen(false);
-    };
-    window.addEventListener("resize", close);
-    return () => window.removeEventListener("resize", close);
+    const closeOnResize = () => { if (window.innerWidth >= 1024) setOpen(false); };
+    window.addEventListener("resize", closeOnResize);
+    return () => window.removeEventListener("resize", closeOnResize);
   }, []);
 
   useEffect(() => {
     if (!open) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink-200/70 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-ink-950/80">
-      <nav className="mx-auto flex h-[64px] w-full max-w-7xl items-center gap-3 px-4 sm:h-[72px] sm:px-6 lg:px-8">
-        <a
-          href="/#about"
-          className="group mr-auto flex min-w-0 items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-ink-950"
-          aria-label="Syed Faizan — go to about section"
-        >
-          <img
-            src="/logo.svg"
-            className="h-12 w-10 shrink-0 object-contain"
-            alt="Syed Faizan logo"
-          />
+    <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur-xl">
+      <nav className="mx-auto flex h-16 w-full max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+        <a href="/#about" className="mr-auto flex min-w-0 items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="Syed Faizan, go to About">
+          <img src="/logo.svg" className="h-10 w-9 shrink-0 object-contain" alt="" />
           <span className="hidden min-w-0 sm:block">
-            <strong className="block truncate text-sm font-bold tracking-tight text-ink-950 dark:text-white">
-              Syed Faizan
-            </strong>
-            <span className="block truncate text-[11px] font-medium text-ink-500 dark:text-ink-400">
-              Software Engineer
-            </span>
+            <strong className="block truncate text-sm font-semibold tracking-tight text-fg-strong">Syed Faizan</strong>
+            <span className="block truncate text-[11px] text-fg-muted">Software Engineer</span>
           </span>
         </a>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-0.5 lg:flex">
           {links.map(([id, label]) => (
-            <a
-              className={`rounded-full px-3 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
-                active === id
-                  ? "bg-ink-950 text-white dark:bg-white dark:text-ink-950"
-                  : "text-ink-600 hover:bg-ink-100 hover:text-ink-950 dark:text-ink-300 dark:hover:bg-white/10 dark:hover:text-white"
-              }`}
-              href={`/#${id}`}
-              key={id}
-            >
+            <a href={`/#${id}`} key={id} aria-current={active === id ? "location" : undefined}
+              className={`rounded-lg px-3 py-2 text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-primary ${active === id ? "bg-primary-subtle text-primary-text" : "text-fg-muted hover:bg-card-muted hover:text-fg"}`}>
               {label}
             </a>
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setDark((current) => !current)}
-            className={controlClass}
-            aria-label={`Switch to ${dark ? "light" : "dark"} mode`}
-            title={`Switch to ${dark ? "light" : "dark"} mode`}
-          >
-            {dark ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />}
-          </button>
+        <div className="flex items-center gap-1.5">
+          <ThemeChooser showActiveTheme={false} label="Theme" ariaLabel="Choose portfolio theme" className="!rounded-lg" />
           <AppLauncher />
-          <a
-            href={githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            className={`${controlClass} hidden sm:grid`}
-            aria-label="Faizan on GitHub"
-            title="GitHub"
-          >
-            <Github className="size-[18px]" />
-          </a>
-          <a
-            href={linkedInUrl}
-            target="_blank"
-            rel="noreferrer"
-            className={`${controlClass} hidden sm:grid`}
-            aria-label="Faizan on LinkedIn"
-            title="LinkedIn"
-          >
-            <Linkedin className="size-[18px]" />
-          </a>
-          <button
-            type="button"
-            className={`${controlClass} lg:hidden`}
-            onClick={() => setOpen((current) => !current)}
-            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={open}
-            aria-controls="mobile-navigation"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          <a href={githubUrl} target="_blank" rel="noreferrer" className={`${iconLink} hidden sm:grid`} aria-label="GitHub"><Github className="size-4" /></a>
+          <a href={linkedInUrl} target="_blank" rel="noreferrer" className={`${iconLink} hidden sm:grid`} aria-label="LinkedIn"><Linkedin className="size-4" /></a>
+          <button type="button" className={`${iconLink} lg:hidden`} onClick={() => setOpen((value) => !value)} aria-label={open ? "Close navigation menu" : "Open navigation menu"} aria-expanded={open} aria-controls="mobile-navigation">
+            {open ? <X className="size-4" /> : <Menu className="size-4" />}
           </button>
         </div>
       </nav>
 
-      {createPortal(<AnimatePresence>
-        {open && (
-          <motion.div
-            className="fixed inset-x-0 bottom-0 top-[65px] z-40 font-sans sm:top-[73px] lg:hidden"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.18 }}
-          >
-            <button
-              type="button"
-              className="absolute inset-0 bg-black/20"
-              onClick={() => setOpen(false)}
-              aria-label="Close navigation menu"
-              tabIndex={-1}
-            />
-            <nav
-              id="mobile-navigation"
-              aria-label="Mobile navigation"
-              className="relative max-h-full overflow-y-auto overscroll-contain border-b border-ink-200/70 bg-white/95 px-4 py-4 shadow-xl backdrop-blur-xl sm:px-6 dark:border-white/10 dark:bg-ink-950/95"
-            >
-            <div className="mx-auto grid max-w-7xl gap-1">
-              {links.map(([id, label]) => (
-                <a
-                  href={`/#${id}`}
-                  onClick={() => setOpen(false)}
-                  className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
-                    active === id
-                      ? "bg-brand-50 text-brand-800 dark:bg-brand-500/15 dark:text-brand-200"
-                      : "text-ink-700 hover:bg-ink-100 dark:text-ink-200 dark:hover:bg-white/10"
-                  }`}
-                  key={id}
-                >
-                  {label}
-                </a>
-              ))}
-              <div className="mt-2 flex gap-2 border-t border-ink-200 pt-3 dark:border-white/10 sm:hidden">
-                <a href={githubUrl} target="_blank" rel="noreferrer" className={`${controlClass} flex-1 rounded-2xl`}>
-                  <Github className="size-[18px]" />
-                  <span className="sr-only">GitHub</span>
-                </a>
-                <a href={linkedInUrl} target="_blank" rel="noreferrer" className={`${controlClass} flex-1 rounded-2xl`}>
-                  <Linkedin className="size-[18px]" />
-                  <span className="sr-only">LinkedIn</span>
-                </a>
-              </div>
-            </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>, document.body)}
+      {createPortal(
+        <AnimatePresence>
+          {open && (
+            <motion.div className="fixed inset-x-0 bottom-0 top-16 z-40 lg:hidden" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }}>
+              <button type="button" className="absolute inset-0 bg-scrim/55" onClick={() => setOpen(false)} aria-label="Close navigation menu" tabIndex={-1} />
+              <nav id="mobile-navigation" aria-label="Mobile navigation" className="relative max-h-full overflow-y-auto border-b border-border bg-card px-4 py-3 sm:px-6">
+                <div className="mx-auto grid max-w-7xl gap-1">
+                  {links.map(([id, label]) => (
+                    <a href={`/#${id}`} onClick={() => setOpen(false)} className={`rounded-lg px-3 py-2.5 text-sm font-medium ${active === id ? "bg-primary-subtle text-primary-text" : "text-fg-muted hover:bg-card-muted hover:text-fg"}`} key={id}>{label}</a>
+                  ))}
+                  <div className="mt-2 flex gap-2 border-t border-border pt-3 sm:hidden">
+                    <a href={githubUrl} target="_blank" rel="noreferrer" className={`${iconLink} flex-1`} aria-label="GitHub"><Github className="size-4" /></a>
+                    <a href={linkedInUrl} target="_blank" rel="noreferrer" className={`${iconLink} flex-1`} aria-label="LinkedIn"><Linkedin className="size-4" /></a>
+                  </div>
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
     </header>
   );
 }

@@ -1,140 +1,86 @@
-import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink, Layers3 } from "lucide-react";
+import { BriefcaseBusiness, Code2, Layers3, Sparkles, Workflow, type LucideIcon } from "lucide-react";
 import type { Project } from "../types";
-import { Tag } from "./ui";
+import DetailedCaseStudy, { type CaseStudyContent } from "./DetailedCaseStudy";
+import AdalAICaseStudy from "./AdalAICaseStudy";
+import ForMuslimCaseStudy from "./ForMuslimCaseStudy";
+import IdPCaseStudy from "./IdPCaseStudy";
+import MiniRippleCaseStudy from "./MiniRippleCaseStudy";
+import MortgageCRMCaseStudy from "./MortgageCRMCaseStudy";
+import NodesCaseStudy from "./NodesCaseStudy";
+import SyedFaaizCaseStudy from "./SyedFaaizCaseStudy";
+import ZaffixxCaseStudy from "./ZaffixxCaseStudy";
+
+const fallbackIcons: LucideIcon[] = [Workflow, Code2, Sparkles, Layers3, BriefcaseBusiness];
+
+function fallbackTheme(project: Project): CaseStudyContent["theme"] {
+  if (project.categories.includes("AI")) return "violet";
+  if (project.categories.includes("Automation") || project.categories.includes("Integrations")) return "teal";
+  if (project.categories.includes("Dashboards")) return "sky";
+  return "amber";
+}
+
+function createProjectStudy(project: Project): CaseStudyContent {
+  const capabilities = project.responsibilities.map((responsibility, index) => ({
+    icon: fallbackIcons[index % fallbackIcons.length],
+    title: "Implementation focus " + String(index + 1).padStart(2, "0"),
+    copy: responsibility,
+  }));
+
+  const challenges = project.responsibilities.slice(0, 4).map((responsibility, index) => ({
+    number: String(index + 1).padStart(2, "0"),
+    title: "Delivery focus " + String(index + 1).padStart(2, "0"),
+    copy: responsibility,
+    outcome: "A documented part of the delivered product scope.",
+  }));
+
+  return {
+    theme: fallbackTheme(project),
+    badge: project.categories[0] ?? "Product engineering",
+    headline: project.summary,
+    lede: project.description,
+    websiteLabel: "Visit " + project.name,
+    snapshots: [
+      { icon: Code2, value: String(project.technologies.length), label: "Core technologies" },
+      { icon: BriefcaseBusiness, value: project.company, label: "Project context" },
+      { icon: Layers3, value: String(project.responsibilities.length), label: "Documented responsibilities" },
+      { icon: Workflow, value: project.categories.join(" · "), label: "Product focus" },
+    ],
+    problem: {
+      icon: BriefcaseBusiness,
+      title: "A focused product delivery needed a cohesive implementation.",
+      copy: project.description,
+    },
+    solution: {
+      icon: Workflow,
+      title: "The work was organized around the core user workflow.",
+      copy: project.summary,
+    },
+    product: {
+      title: "The documented delivery scope.",
+      copy: "This project has implementation details, but not enough confirmed system information to present an architecture diagram responsibly.",
+    },
+    capabilities,
+    challengesIntro: {
+      title: "The implementation priorities behind the delivery.",
+      copy: "Each point below is drawn directly from the documented responsibilities for this project.",
+    },
+    challenges,
+    closer: {
+      title: "A focused record of the product work delivered.",
+      copy: "This case study uses the same current presentation system as the fully documented projects while keeping its claims limited to the available project record.",
+    },
+  };
+}
 
 export default function ProjectCaseStudy({ project }: { project: Project }) {
-  return (
-    <main className="min-h-screen bg-ink-50 text-ink-950 dark:bg-ink-950 dark:text-white">
-      <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-20">
-        <a
-          className="mb-10 inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-4 py-2 text-sm font-semibold text-ink-700 shadow-sm transition hover:border-brand-300 hover:text-brand-700 sm:mb-14 dark:border-white/10 dark:bg-white/[0.05] dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"
-          href="/case-studies"
-        >
-          <ArrowLeft className="size-4" />
-          All case studies
-        </a>
+  if (project.id === "mortgage-crm") return <MortgageCRMCaseStudy project={project} />;
+  if (project.id === "adal-ai") return <AdalAICaseStudy project={project} />;
+  if (project.id === "miniripple") return <MiniRippleCaseStudy project={project} />;
+  if (project.id === "zaffixx") return <ZaffixxCaseStudy project={project} />;
+  if (project.id === "syedfaaiz-idp") return <IdPCaseStudy project={project} />;
+  if (project.id === "nodes") return <NodesCaseStudy project={project} />;
+  if (project.id === "syedfaaiz") return <SyedFaaizCaseStudy project={project} />;
+  if (project.id === "for-muslim") return <ForMuslimCaseStudy project={project} />;
 
-        <header className="grid overflow-hidden rounded-[2rem] border border-ink-200 bg-white shadow-soft lg:grid-cols-[1.45fr_0.75fr] dark:border-white/10 dark:bg-ink-900/80">
-          <div className="p-6 sm:p-10 lg:p-14">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-300">
-              Case study · {project.company}
-            </span>
-            <motion.h1
-              className="mt-5 text-4xl font-semibold tracking-[-0.05em] sm:text-6xl lg:text-7xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              {project.name}
-            </motion.h1>
-            <p className="mt-6 max-w-3xl text-base leading-8 text-ink-600 sm:text-lg dark:text-ink-300">
-              {project.description}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {project.technologies.map((technology) => (
-                <Tag key={technology}>{technology}</Tag>
-              ))}
-            </div>
-            {project.website && (
-              <a
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-700 dark:bg-white dark:text-ink-950 dark:hover:bg-brand-200"
-                href={project.website}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Visit live website
-                <ExternalLink className="size-4" />
-              </a>
-            )}
-          </div>
-
-          <div className="border-t border-ink-200 bg-ink-50 p-6 text-ink-950 sm:p-10 lg:border-l lg:border-t-0 lg:p-12 dark:border-white/10 dark:bg-black/30 dark:text-white">
-            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-700 dark:text-brand-300">
-              Product system
-            </span>
-            <strong className="mt-4 block text-2xl font-semibold tracking-tight">
-              {project.name}
-            </strong>
-            <div className="mt-10 grid gap-3">
-              {project.categories.map((category, index) => (
-                <div key={category} className="flex items-center gap-3 rounded-2xl border border-ink-200 bg-white p-4 dark:border-white/10 dark:bg-white/[0.05]">
-                  <span className="text-xs font-black text-brand-700 dark:text-brand-300">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-sm font-semibold">{category}</span>
-                  <ArrowRight className="ml-auto size-4 text-ink-400 dark:text-white/50" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </header>
-
-        <section className="grid gap-10 py-16 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16 lg:py-24">
-          <aside className="lg:sticky lg:top-28 lg:self-start">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-300">
-              The brief
-            </span>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
-              {project.summary}
-            </h2>
-            <p className="mt-5 text-sm leading-7 text-ink-600 sm:text-base dark:text-ink-300">
-              My contribution covered the engineering work below, connecting product requirements with a maintainable technical implementation.
-            </p>
-          </aside>
-
-          <div>
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-300">
-              Key implementation
-            </span>
-            <div className="mt-5 grid gap-3">
-              {project.responsibilities.map((responsibility, index) => (
-                <motion.article
-                  className="flex gap-4 rounded-[1.35rem] border border-ink-200 bg-white p-5 shadow-sm sm:p-6 dark:border-white/10 dark:bg-white/[0.04]"
-                  initial={{ opacity: 0, x: 18 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  key={responsibility}
-                >
-                  <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-brand-600 dark:text-brand-300" />
-                  <div>
-                    <span className="text-[10px] font-black uppercase tracking-[0.18em] text-ink-400 dark:text-ink-500">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <p className="mt-1 text-sm leading-7 text-ink-700 sm:text-base dark:text-ink-200">
-                      {responsibility}
-                    </p>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="flex flex-col gap-6 rounded-[2rem] bg-brand-600 p-7 text-white shadow-brand sm:p-10 lg:flex-row lg:items-center lg:p-12">
-          <div className="grid size-14 shrink-0 place-items-center rounded-2xl bg-white/15">
-            <Layers3 className="size-7" />
-          </div>
-          <div className="max-w-3xl">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-100">
-              Engineering lens
-            </span>
-            <h2 className="mt-3 text-2xl font-semibold tracking-[-0.035em] sm:text-3xl">
-              A connected workflow, designed as one product.
-            </h2>
-            <p className="mt-3 text-sm leading-7 text-brand-50/90 sm:text-base">
-              The implementation combines interface quality, service architecture, permissions, integrations and delivery rather than treating each as an isolated feature.
-            </p>
-          </div>
-        </section>
-
-        <div className="mt-10 flex justify-end">
-          <a className="inline-flex items-center gap-2 text-sm font-bold text-ink-900 hover:text-brand-700 dark:text-white dark:hover:text-brand-200" href="/case-studies">
-            Explore all case studies
-            <ArrowRight className="size-4" />
-          </a>
-        </div>
-      </div>
-    </main>
-  );
+  return <DetailedCaseStudy project={project} study={createProjectStudy(project)} />;
 }

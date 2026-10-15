@@ -1,25 +1,27 @@
 import { RouteMetadata } from "./seo/RouteMetadata";
-import { PLATFORM_PERSON_SOCIALS } from "@thesyedfaaiz/ui";
+import { PLATFORM_PERSON_SOCIALS, useTheme } from "@thesyedfaaiz/ui";
 import AIWorkflows from "./components/AIWorkflows";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
+  BookOpen,
   BrainCircuit,
+  BriefcaseBusiness,
   Cloud,
-  Code2,
   Database,
-  ExternalLink,
-  Github,
   GraduationCap,
+  Github,
   Layers3,
   Linkedin,
   MapPin,
   Phone,
   Plug,
+  School,
   Sparkles,
   Workflow,
+  type LucideIcon,
 } from "lucide-react";
 import Navigation from "./components/Navigation";
 import Projects from "./components/Projects";
@@ -28,7 +30,7 @@ import ProjectCaseStudy from "./components/ProjectCaseStudy";
 import CopyEmail from "./components/CopyEmail";
 import PublicFooter from "./components/PublicFooter";
 import { Section, Tag } from "./components/ui";
-import { certifications, education, experiences, skillGroups } from "./data/content";
+import { education, experiences, skillGroups } from "./data/content";
 import { projects } from "./data/projects";
 
 import SystemScene from "./components/SystemScene";
@@ -46,19 +48,30 @@ const iconMap = {
   cloud: Cloud,
 };
 
+function TimelineCheckpoint({ Icon, isLast, mutedSurface = false }: { Icon: LucideIcon; isLast: boolean; mutedSurface?: boolean }) {
+  return (
+    <>
+      {!isLast && <span className="absolute -bottom-4 left-[15px] top-4 w-px bg-border" aria-hidden="true" />}
+      <span className={`absolute left-0 top-0 z-10 grid size-8 place-items-center rounded-full border border-border-strong text-primary-text ${mutedSurface ? "bg-bg-muted" : "bg-bg"}`} aria-hidden="true">
+        <Icon className="size-4" strokeWidth={1.8} />
+      </span>
+    </>
+  );
+}
+
 const primaryButton =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink-950 px-5 py-3 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 sm:px-6 dark:bg-white dark:text-ink-950 dark:hover:bg-brand-200 dark:focus-visible:ring-offset-ink-950";
+  "inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-fg transition hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 
 const secondaryButton =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-ink-200 bg-white/80 px-5 py-3 text-sm font-bold text-ink-800 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 sm:px-6 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:hover:border-brand-400/40 dark:hover:text-brand-200 dark:focus-visible:ring-offset-ink-950";
+  "inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold text-fg transition hover:bg-card-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg";
 
 function Portfolio() {
   return (
-    <div id="top" className="min-h-screen bg-ink-50 font-sans text-ink-950 selection:bg-brand-200 selection:text-brand-950 dark:bg-ink-950 dark:text-white dark:selection:bg-brand-600 dark:selection:text-white">
+    <div id="top" className="min-h-screen bg-bg font-sans text-fg-strong">
       <Navigation />
       <main>
-        <section className="relative overflow-hidden border-b border-ink-200/80 dark:border-white/10">
-          <div className="relative flex items-start justify-center pt-6 pb-8 sm:min-h-[92vh] sm:items-center sm:pt-8 sm:pb-0">
+        <section className="relative overflow-hidden border-b border-border ">
+          <div className="relative flex items-start justify-center pb-8 pt-6 sm:min-h-[76vh] sm:items-center sm:pb-0 sm:pt-8">
             <div className="relative z-10 mx-auto w-full max-w-5xl px-5 text-center sm:px-6">
               <SystemScene />
 
@@ -69,11 +82,11 @@ function Portfolio() {
                 transition={{ delay: 0.08, duration: 0.8 }}
               >
                 Syed Faaiz{" "}
-                <span className="text-brand-600 dark:text-brand-300">— Software Engineer</span>
+                <span className="text-primary-text ">— Software Engineer</span>
               </motion.h1>
 
               <motion.p
-                className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-ink-600 sm:text-base dark:text-ink-300"
+                className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-fg-muted sm:text-base "
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.24 }}
@@ -112,7 +125,7 @@ function Portfolio() {
 
         <AboutSyedFaaiz />
 
-        <section className="border-b border-ink-200/80 bg-white/70 dark:border-white/10 dark:bg-white/[0.02]" aria-label="Professional snapshot">
+        <section className="border-b border-border bg-card-muted" aria-label="Professional snapshot">
           <div className="mx-auto grid w-full max-w-7xl grid-cols-2 px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
             {[
               ["2+", "Years professional experience"],
@@ -122,14 +135,14 @@ function Portfolio() {
             ].map(([value, label], index) => (
               <motion.div
                 key={value}
-                className={`py-6 sm:py-8 ${index % 2 === 0 ? "pr-4" : "pl-4"} ${index > 0 ? "lg:border-l lg:border-ink-200 lg:pl-7 dark:lg:border-white/10" : ""}`}
+                className={`py-6 sm:py-8 ${index % 2 === 0 ? "pr-4" : "pl-4"} ${index > 0 ? "lg:border-l lg:border-border lg:pl-7 " : ""}`}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.07 }}
               >
-                <strong className="block text-xl font-black tracking-tight text-ink-950 sm:text-2xl dark:text-white">{value}</strong>
-                <span className="mt-1 block max-w-[180px] text-xs leading-5 text-ink-500 sm:text-sm dark:text-ink-400">{label}</span>
+                <strong className="block text-xl font-black tracking-tight text-fg-strong sm:text-2xl ">{value}</strong>
+                <span className="mt-1 block max-w-[180px] text-xs leading-5 text-fg-muted sm:text-sm ">{label}</span>
               </motion.div>
             ))}
           </div>
@@ -137,68 +150,54 @@ function Portfolio() {
 
         <Section id="about" kicker="01 / Profile" title="I build across the product stack.">
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-            <div className="space-y-6 text-xl leading-9 tracking-[-0.02em] text-ink-700 sm:text-2xl sm:leading-10 dark:text-ink-200">
+            <div className="space-y-6 text-xl leading-9 tracking-[-0.02em] text-fg sm:text-2xl sm:leading-10 ">
               <p>
-                Full-Stack Engineer with <em className="font-semibold not-italic text-brand-700 dark:text-brand-200">2+ years</em> of professional experience delivering SaaS applications, AI-assisted workflows, dashboards, integrations, and automation systems.
+                Full-Stack Engineer with <em className="font-semibold not-italic text-primary-text ">2+ years</em> of professional experience delivering SaaS applications, AI-assisted workflows, dashboards, integrations, and automation systems.
               </p>
-              <p className="text-base leading-8 text-ink-500 sm:text-lg dark:text-ink-400">
+              <p className="text-base leading-8 text-fg-muted sm:text-lg ">
                 Hands-on from interface implementation and backend services through third-party integrations, deployment, and operational handover.
               </p>
             </div>
             <div className="grid gap-2 sm:grid-cols-2">
               {["Multi-tenant SaaS architecture", "Role-based access control", "AI document pipelines", "RAG and embeddings", "CRM automation", "API integrations", "Dashboard development", "Cloud deployment"].map((item, index) => (
-                <div key={item} className="flex min-h-20 items-start gap-3 rounded-2xl border border-ink-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
-                  <span className="mt-0.5 text-[10px] font-black text-brand-600 dark:text-brand-300">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="text-sm font-semibold leading-6 text-ink-700 dark:text-ink-200">{item}</span>
+                <div key={item} className="flex min-h-20 items-start gap-3 rounded-lg border border-border bg-card p-4">
+                  <span className="mt-0.5 text-[10px] font-black text-primary-text ">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="text-sm font-semibold leading-6 text-fg ">{item}</span>
                 </div>
               ))}
             </div>
           </div>
         </Section>
 
-        <div className="border-y border-ink-200/80 bg-white/50 dark:border-white/10 dark:bg-white/[0.015]">
+        <div className="border-y border-border bg-bg-muted">
           <Section id="experience" kicker="02 / Experience" title="Progress shaped by real products.">
-            <div className="mx-auto max-w-4xl">
+            <ol className="mx-auto max-w-4xl">
               {experiences
                 .flatMap((experience) => experience.roles.map((role, roleIndex) => ({ experience, role, roleIndex })))
-                .map(({ experience, role, roleIndex }, index, allRoles) => {
-                  const isLast = index === allRoles.length - 1;
-                  return (
-                    <article
-                      key={`${experience.company}-${role.title}`}
-                      className={`relative grid grid-cols-[48px_minmax(0,1fr)] gap-4 sm:grid-cols-[56px_minmax(0,1fr)] sm:gap-6 ${isLast ? "pb-0" : "pb-5"}`}
-                    >
-                      <div className="relative flex justify-center">
-                        {!isLast && (
-                          <span className="absolute bottom-[-1.25rem] top-12 w-px bg-ink-200 dark:bg-white/10 sm:top-14" aria-hidden="true" />
-                        )}
-                        <div className="relative z-10 grid size-12 place-items-center rounded-2xl border border-ink-200 bg-white text-brand-600 shadow-sm sm:size-14 dark:border-white/10 dark:bg-ink-900 dark:text-brand-300">
-                          <Code2 className="size-5" />
-                        </div>
-                      </div>
+                .map(({ experience, role, roleIndex }, index, allRoles) => (
+                    <li key={`${experience.company}-${role.title}`} className="relative pb-10 pl-12 last:pb-0">
+                      <TimelineCheckpoint Icon={BriefcaseBusiness} isLast={index === allRoles.length - 1} mutedSurface />
                       <motion.div
-                        className="rounded-[1.5rem] border border-ink-200 bg-white p-5 shadow-sm sm:p-7 dark:border-white/10 dark:bg-ink-900/70"
                         initial={{ opacity: 0, y: 15 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.05 }}
                       >
                         <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-xs font-semibold text-ink-500 dark:text-ink-400">{role.period}</span>
+                          <span className="text-xs font-semibold text-fg-muted ">{role.period}</span>
                           {roleIndex === 0 && experience.roles.length > 1 && (
-                            <b className="rounded-full bg-brand-50 px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-brand-700 dark:bg-brand-500/10 dark:text-brand-200">Promoted</b>
+                            <b className="rounded-full bg-primary-subtle px-2.5 py-1 text-xs font-semibold text-primary-text">Promoted</b>
                           )}
                         </div>
-                        <h3 className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl">{role.title}</h3>
+                        <h3 className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl">{role.title}</h3>
                         <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm">
-                          <a className="font-bold text-brand-700 hover:underline dark:text-brand-200" href={experience.companyUrl} target="_blank" rel="noreferrer">{experience.company}</a>
-                          <span className="text-ink-400">{experience.location}</span>
+                          <a className="font-semibold text-fg hover:underline" href={experience.companyUrl} target="_blank" rel="noreferrer">{experience.company}</a>
+                          <span className="text-fg-muted">{experience.location}</span>
                         </div>
                       </motion.div>
-                    </article>
-                  );
-                })}
-            </div>
+                    </li>
+                  ))}
+            </ol>
           </Section>
         </div>
 
@@ -207,15 +206,15 @@ function Portfolio() {
         </Section>
         <AIWorkflows />
 
-        <div className="border-y border-ink-200/80 bg-white/50 dark:border-white/10 dark:bg-white/[0.015]">
+        <div className="border-y border-border bg-bg-muted">
           <Section id="skills" kicker="07 / Toolkit" title="A stack organized around outcomes.">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {skillGroups.map((group) => {
                 const Icon = iconMap[group.icon as keyof typeof iconMap];
                 return (
-                  <article key={group.title} className="rounded-[1.5rem] border border-ink-200 bg-white p-6 shadow-sm sm:p-7 dark:border-white/10 dark:bg-ink-900/70">
+                  <article key={group.title} className="rounded-lg border border-border bg-card p-6 sm:p-7">
                     <div className="flex items-center gap-3">
-                      <span className="grid size-10 place-items-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-200"><Icon className="size-5" /></span>
+                      <span className="grid size-10 place-items-center rounded-xl bg-primary-subtle text-primary-text"><Icon className="size-5" /></span>
                       <h3 className="text-lg font-semibold tracking-tight">{group.title}</h3>
                     </div>
                     <div className="mt-6 flex flex-wrap gap-2">
@@ -228,63 +227,49 @@ function Portfolio() {
           </Section>
         </div>
 
-        <Section id="education" kicker="08 / Foundation" title="Education & continuous learning.">
-          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-            <div>
-              {education.map((item, index) => {
-                const isLast = index === education.length - 1;
-                return (
-                  <article
-                    className={`relative grid grid-cols-[48px_minmax(0,1fr)] gap-4 sm:grid-cols-[56px_minmax(0,1fr)] sm:gap-6 ${isLast ? "pb-0" : "pb-5"}`}
-                    key={item.degree}
-                  >
-                    <div className="relative flex justify-center">
-                      {!isLast && (
-                        <span className="absolute bottom-[-1.25rem] top-12 w-px bg-ink-200 dark:bg-white/10 sm:top-14" aria-hidden="true" />
-                      )}
-                      <div className="relative z-10 grid size-12 place-items-center rounded-2xl border border-ink-200 bg-white text-brand-600 shadow-sm sm:size-14 dark:border-white/10 dark:bg-ink-900 dark:text-brand-300">
-                        <GraduationCap className="size-5" />
-                      </div>
-                    </div>
+        <Section id="education" kicker="08 / Foundation" title="Education.">
+          <ol className="mx-auto max-w-4xl">
+              {education.map((item, index) => (
+                  <li className="relative pb-10 pl-12 last:pb-0" key={item.school}>
+                    <TimelineCheckpoint Icon={index === 0 ? GraduationCap : index === 1 ? BookOpen : School} isLast={index === education.length - 1} />
                     <motion.div
-                      className="rounded-[1.5rem] border border-ink-200 bg-white p-5 shadow-sm sm:p-7 dark:border-white/10 dark:bg-ink-900/70"
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.05 }}
                     >
-                      <span className="text-xs font-semibold text-ink-500 dark:text-ink-400">{item.period}</span>
-                      <h3 className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl">{item.degree}</h3>
-                      <h4 className="mt-2 text-sm font-bold text-brand-700 dark:text-brand-200">{item.school}</h4>
-                      {item.detail && <b className="mt-2 block text-xs text-ink-500 dark:text-ink-400">{item.detail}</b>}
-                      {item.description && <p className="mt-4 text-sm leading-7 text-ink-600 dark:text-ink-300">{item.description}</p>}
-                      {index === 0 && <div className="mt-4 rounded-xl bg-ink-50 p-3 text-xs leading-6 text-ink-500 dark:bg-white/[0.04] dark:text-ink-400">OOP · Data Structures · Algorithms · Databases · Operating Systems · Networks · AI · Web Engineering</div>}
+                      <h3 className="text-xl font-semibold tracking-tight text-fg-strong sm:text-2xl">{item.school}</h3>
+                      <p className="mt-1 text-sm font-medium text-fg">{item.degree}</p>
+                      <span className="mt-1 block text-sm leading-6 text-fg-muted">{item.period}</span>
+                      {item.detail && <p className="mt-3 text-sm leading-6 text-fg-muted">{item.detail}</p>}
+                      {item.description && <p className="mt-2 text-sm leading-6 text-fg-muted">{item.description}</p>}
+                      {item.courses && (
+                        <div className="mt-5">
+                          <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-fg-muted">Coursework</h4>
+                          <ul className="mt-2 grid max-w-2xl gap-x-6 gap-y-1 sm:grid-cols-2">
+                            {item.courses.map((course) => (
+                              <li key={course} className="flex items-start gap-2.5 py-1 text-sm font-medium leading-6 text-fg">
+                                <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-primary-subtle text-primary-text" aria-hidden="true">
+                                  <BookOpen className="size-3" strokeWidth={1.8} />
+                                </span>
+                                {course}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </motion.div>
-                  </article>
-                );
-              })}
-            </div>
-            <div>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-300">Udemy coursework</span>
-              <div className="mt-4 divide-y divide-ink-200 overflow-hidden rounded-[1.5rem] border border-ink-200 bg-white shadow-sm dark:divide-white/10 dark:border-white/10 dark:bg-ink-900/70">
-                {certifications.map((course, index) => (
-                  <article key={course} className="flex items-start gap-3 p-4 sm:p-5">
-                    <span className="mt-0.5 text-[10px] font-black text-brand-600 dark:text-brand-300">0{index + 1}</span>
-                    <p className="text-sm font-semibold leading-6 text-ink-700 dark:text-ink-200">{course}</p>
-                    <ExternalLink className="ml-auto mt-0.5 size-4 shrink-0 text-ink-300 dark:text-ink-600" />
-                  </article>
+                  </li>
                 ))}
-              </div>
-            </div>
-          </div>
+          </ol>
         </Section>
 
-        <div className="border-t border-ink-200/80 bg-white/50 dark:border-white/10 dark:bg-white/[0.015]">
-          <Section id="contact" kicker="09 / Let’s connect" title="Let's build something that matters.">
-            <div className="grid gap-8 rounded-[2rem] border border-ink-200 bg-white p-6 shadow-soft sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10 dark:border-white/10 dark:bg-ink-900/70">
+        <div className="border-t border-border">
+          <Section id="contact" kicker="09 / Let's connect" title="Let's build something that matters.">
+            <div className="grid gap-8 rounded-xl border border-border bg-card p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10">
               <div>
-                <p className="max-w-2xl text-base leading-8 text-ink-600 sm:text-lg dark:text-ink-300">Open to software engineering opportunities, SaaS development, AI application development, product engineering and technical collaborations.</p>
-                <a className="mt-7 block w-fit break-all text-xl font-semibold tracking-tight text-ink-950 transition hover:text-brand-700 sm:text-2xl dark:text-white dark:hover:text-brand-200" href="mailto:faaiz290302@gmail.com">
+                <p className="max-w-2xl text-base leading-8 text-fg-muted sm:text-lg ">Open to software engineering opportunities, SaaS development, AI application development, product engineering and technical collaborations.</p>
+                <a className="mt-7 block w-fit break-all text-xl font-semibold tracking-tight text-fg-strong transition hover:text-primary-text sm:text-2xl" href="mailto:faaiz290302@gmail.com">
                   faaiz290302@gmail.com
                 </a>
                 <div className="mt-5">
@@ -292,10 +277,10 @@ function Portfolio() {
                 </div>
               </div>
               <div className="grid content-start gap-2">
-                <a href="tel:+923211170210" className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Phone className="size-4" />+92 321 1170210</a>
-                <span className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 dark:border-white/10 dark:text-ink-200"><MapPin className="size-4" />Lahore, Pakistan</span>
-                <a href={githubUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Github className="size-4" />github.com/thesyedfaaiz</a>
-                <a href={linkedInUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-ink-200 p-4 text-sm font-semibold text-ink-700 transition hover:border-brand-300 hover:text-brand-700 dark:border-white/10 dark:text-ink-200 dark:hover:border-brand-400/40 dark:hover:text-brand-200"><Linkedin className="size-4" />linkedin.com/in/thesyedfaaiz</a>
+                <a href="tel:+923211170210" className="flex items-center gap-3 rounded-lg border border-border p-4 text-sm font-semibold text-fg transition hover:bg-card-muted"><Phone className="size-4" />+92 321 1170210</a>
+                <span className="flex items-center gap-3 rounded-lg border border-border p-4 text-sm font-semibold text-fg"><MapPin className="size-4" />Lahore, Pakistan</span>
+                <a href={githubUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-lg border border-border p-4 text-sm font-semibold text-fg transition hover:bg-card-muted"><Github className="size-4" />github.com/thesyedfaaiz</a>
+                <a href={linkedInUrl} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-lg border border-border p-4 text-sm font-semibold text-fg transition hover:bg-card-muted"><Linkedin className="size-4" />linkedin.com/in/thesyedfaaiz</a>
               </div>
             </div>
           </Section>
@@ -309,8 +294,54 @@ function Portfolio() {
 function Footer() {
   return <PublicFooter />;
 }
+
+function currentPath() {
+  return window.location.pathname.replace(/\/+$/, "") || "/";
+}
+
 function App() {
-  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  const { theme } = useTheme();
+  const [path, setPath] = useState(currentPath);
+  useLayoutEffect(() => {
+    document.documentElement.classList.toggle("dark", theme.mode === "dark");
+  }, [theme.mode]);
+
+  useEffect(() => {
+    const onPopState = () => setPath(currentPath());
+    const onInternalClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (!(event.target instanceof Element)) return;
+      const anchor = event.target.closest<HTMLAnchorElement>("a[href]");
+      if (!anchor || anchor.hasAttribute("download") || (anchor.target && anchor.target !== "_self")) return;
+
+      const next = new URL(anchor.href);
+      if (next.origin !== window.location.origin || !/^\/$|^\/case-studies\/?$|^\/case-study\/[^/]+\/?$/.test(next.pathname)) return;
+      if (next.pathname === window.location.pathname && next.search === window.location.search && next.hash) return;
+      if (next.href === window.location.href) return;
+
+      event.preventDefault();
+      window.history.pushState(null, "", next);
+      setPath(currentPath());
+    };
+
+    window.addEventListener("popstate", onPopState);
+    document.addEventListener("click", onInternalClick);
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+      document.removeEventListener("click", onInternalClick);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const hash = window.location.hash;
+      const target = hash && !hash.startsWith("#/") ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+      if (target) target.scrollIntoView();
+      else if (!hash) window.scrollTo(0, 0);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [path]);
+
   useEffect(() => {
     if (location.hash.startsWith("#/case-stud")) location.replace(location.hash.slice(1));
   }, []);

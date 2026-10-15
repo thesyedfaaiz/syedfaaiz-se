@@ -33,4 +33,5 @@ export interface Education {
   period: string;
   detail?: string;
   description?: string;
+  courses?: string[];
 }

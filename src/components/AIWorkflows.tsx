@@ -419,7 +419,7 @@ function WorkflowSection({
     >
       <div
         ref={ref}
-        className="ai-flow text-ink-950 dark:text-white"
+        className="ai-flow text-fg"
         data-running={
           visible &&
           pageVisible &&
@@ -433,11 +433,11 @@ function WorkflowSection({
               {flow.title}
             </h3>
 
-            <p className="mt-5 text-base leading-8 text-ink-600 dark:text-ink-300">
+            <p className="mt-5 text-base leading-8 text-fg-muted">
               {flow.description}
             </p>
 
-            <p className="mt-6 text-sm leading-7 text-ink-500 dark:border-brand-500/40 dark:text-ink-400">
+            <p className="mt-6 text-sm leading-7 text-fg-muted">
               {flow.example}
             </p>
           </div>

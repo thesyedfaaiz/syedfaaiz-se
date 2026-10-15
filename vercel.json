@@ -5,6 +5,26 @@
       "dest": "/case-studies.html"
     },
     {
+      "src": "^/case-study/zaffixx/?$",
+      "dest": "/case-study/zaffixx.html"
+    },
+    {
+      "src": "^/case-study/syedfaaiz-idp/?$",
+      "dest": "/case-study/syedfaaiz-idp.html"
+    },
+    {
+      "src": "^/case-study/nodes/?$",
+      "dest": "/case-study/nodes.html"
+    },
+    {
+      "src": "^/case-study/syedfaaiz/?$",
+      "dest": "/case-study/syedfaaiz.html"
+    },
+    {
+      "src": "^/case-study/for-muslim/?$",
+      "dest": "/case-study/for-muslim.html"
+    },
+    {
       "src": "^/case-study/adal-ai/?$",
       "dest": "/case-study/adal-ai.html"
     },

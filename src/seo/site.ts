@@ -21,8 +21,9 @@ const person = {
   jobTitle: "Software Engineer",
   homeLocation: { "@type": "Place", name: "Lahore, Punjab, Pakistan" },
   alumniOf: [
-    { "@type": "CollegeOrUniversity", name: "Punjab University College of Information Technology", alternateName: "PUCIT", url: "https://pucit.edu.pk/" },
+    { "@type": "CollegeOrUniversity", name: "University of the Punjab" },
     { "@type": "EducationalOrganization", name: "Punjab Group of Colleges", url: "https://pgc.edu/" },
+    { "@type": "EducationalOrganization", name: "Government High School Chauburji Gardens" },
   ],
   knowsAbout: ["Software engineering", "Full-stack web development", "AI-assisted applications", "SaaS product development", "Taekwondo", "Arm wrestling", "Calisthenics"],
   award: "Kukkiwon Taekwondo black belt, 1st Dan",

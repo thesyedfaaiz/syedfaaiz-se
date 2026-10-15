@@ -67,7 +67,7 @@ export default function SystemScene() {
           loading="eager"
           fetchPriority="high"
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-28 bg-gradient-to-t from-ink-50 via-ink-50/80 to-transparent dark:from-ink-950 dark:via-ink-950/80" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-28 bg-gradient-to-t from-bg via-bg/80 to-transparent" aria-hidden="true" />
       </div>
 
       {stages.map((stage, index) => {
@@ -78,12 +78,12 @@ export default function SystemScene() {
             <motion.div
               animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
               transition={{ duration: 5 + index * 0.25, ease: "easeInOut", repeat: Infinity }}
-              className="inline-flex max-w-[220px] items-center gap-1.5 rounded-full border border-ink-200 bg-white px-2.5 py-1.5 text-left text-ink-950 sm:gap-2 dark:border-white/10 dark:bg-ink-900 dark:text-white"
+              className="inline-flex max-w-[220px] items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1.5 text-left text-fg sm:gap-2"
             >
               <Icon className="size-[14px] shrink-0 opacity-95 sm:size-[18px]" aria-hidden="true" />
               <span>
                 <strong className="block whitespace-nowrap text-[clamp(10px,1.25vw,14px)] font-semibold leading-snug">{stage.title}</strong>
-                {stage.meta && <span className="block whitespace-nowrap text-[7px] leading-relaxed text-ink-500 min-[400px]:text-[8px] sm:text-[10px] dark:text-ink-400">{stage.meta}</span>}
+                {stage.meta && <span className="block whitespace-nowrap text-[7px] leading-relaxed text-fg-muted min-[400px]:text-[8px] sm:text-[10px]">{stage.meta}</span>}
               </span>
             </motion.div>
           </div>
