@@ -1,5 +1,6 @@
 .ai-flow {
   --flow-accent: var(--color-primary);
+  --flow-signal: var(--color-fg-strong);
   --flow-surface: var(--color-card);
   --flow-border: var(--color-border-strong);
   --flow-text: var(--color-fg-strong);
@@ -119,10 +120,11 @@
 
 .ai-flow__signal {
   fill: none;
-  stroke: var(--flow-accent);
+  stroke: var(--flow-signal);
   stroke-width: 2.5;
   stroke-linecap: round;
-  stroke-dasharray: 0.12 0.88;
+  /* One pulse per connector; the long gap prevents it wrapping to the source. */
+  stroke-dasharray: 0.12 2;
 
   /*
    * Keeps line thickness visually consistent when SVG
@@ -324,7 +326,7 @@
   0%,
   5% {
     opacity: 0;
-    stroke-dashoffset: 1;
+    stroke-dashoffset: 0;
   }
 
   8% {
@@ -333,13 +335,13 @@
 
   19% {
     opacity: 1;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 
   22%,
   100% {
     opacity: 0;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 }
 
@@ -355,7 +357,7 @@
 
   10%,
   20% {
-    stroke: var(--flow-accent);
+    stroke: var(--flow-signal);
   }
 
   28%,
@@ -374,7 +376,7 @@
   0%,
   20% {
     opacity: 0;
-    stroke-dashoffset: 1;
+    stroke-dashoffset: 0;
   }
 
   23% {
@@ -383,13 +385,13 @@
 
   34% {
     opacity: 1;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 
   37%,
   100% {
     opacity: 0;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 }
 
@@ -405,7 +407,7 @@
 
   25%,
   35% {
-    stroke: var(--flow-accent);
+    stroke: var(--flow-signal);
   }
 
   43%,
@@ -424,7 +426,7 @@
   0%,
   35% {
     opacity: 0;
-    stroke-dashoffset: 1;
+    stroke-dashoffset: 0;
   }
 
   38% {
@@ -433,13 +435,13 @@
 
   49% {
     opacity: 1;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 
   52%,
   100% {
     opacity: 0;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 }
 
@@ -455,7 +457,7 @@
 
   40%,
   50% {
-    stroke: var(--flow-accent);
+    stroke: var(--flow-signal);
   }
 
   58%,
@@ -474,7 +476,7 @@
   0%,
   50% {
     opacity: 0;
-    stroke-dashoffset: 1;
+    stroke-dashoffset: 0;
   }
 
   53% {
@@ -483,13 +485,13 @@
 
   64% {
     opacity: 1;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 
   67%,
   100% {
     opacity: 0;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 }
 
@@ -505,7 +507,7 @@
 
   55%,
   65% {
-    stroke: var(--flow-accent);
+    stroke: var(--flow-signal);
   }
 
   73%,
@@ -524,7 +526,7 @@
   0%,
   65% {
     opacity: 0;
-    stroke-dashoffset: 1;
+    stroke-dashoffset: 0;
   }
 
   68% {
@@ -533,13 +535,13 @@
 
   79% {
     opacity: 1;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 
   82%,
   100% {
     opacity: 0;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: -0.88;
   }
 }
 
@@ -555,7 +557,7 @@
 
   70%,
   80% {
-    stroke: var(--flow-accent);
+    stroke: var(--flow-signal);
   }
 
   88%,
@@ -577,7 +579,7 @@
 }
 
 .ai-flow[data-reduced="true"] .ai-flow__ring {
-  stroke: var(--flow-accent);
+  stroke: var(--flow-signal);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -590,6 +592,6 @@
   }
 
   .ai-flow__ring {
-    stroke: var(--flow-accent);
+    stroke: var(--flow-signal);
   }
 }

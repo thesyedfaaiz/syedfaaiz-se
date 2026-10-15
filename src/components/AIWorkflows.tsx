@@ -233,6 +233,23 @@ function getEdgeStage(flow: WorkflowDefinition, index: number) {
   return index;
 }
 
+function connectorPath([x1, y1]: Point, [x2, y2]: Point) {
+  const radius = 38;
+  const horizontal = Math.abs(x2 - x1) >= Math.abs(y2 - y1);
+  const direction = horizontal ? Math.sign(x2 - x1) : Math.sign(y2 - y1);
+  const startX = x1 + (horizontal ? direction * radius : 0);
+  const startY = y1 + (horizontal ? 0 : direction * radius);
+  const endX = x2 - (horizontal ? direction * radius : 0);
+  const endY = y2 - (horizontal ? 0 : direction * radius);
+  const controlDistance = Math.min(72, Math.max(28, (horizontal ? Math.abs(endX - startX) : Math.abs(endY - startY)) * 0.35));
+
+  if (horizontal) {
+    return `M ${startX} ${startY} C ${startX + direction * controlDistance} ${startY}, ${endX - direction * controlDistance} ${endY}, ${endX} ${endY}`;
+  }
+
+  return `M ${startX} ${startY} C ${startX} ${startY + direction * controlDistance}, ${endX} ${endY - direction * controlDistance}, ${endX} ${endY}`;
+}
+
 function Diagram({
   flow,
 }: {
@@ -254,15 +271,7 @@ function Diagram({
       focusable="false"
     >
       {flow.edges.map(([from, to], index) => {
-        const [x1, y1] = points[from];
-        const [x2, y2] = points[to];
-
-        const path = `
-          M ${x1} ${y1}
-          C ${(x1 + x2) / 2} ${y1},
-            ${(x1 + x2) / 2} ${y2},
-            ${x2} ${y2}
-        `;
+        const path = connectorPath(points[from], points[to]);
 
         const stage =
           flow.id === "assistant"

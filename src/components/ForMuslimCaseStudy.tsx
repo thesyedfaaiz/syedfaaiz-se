@@ -12,7 +12,7 @@ const architectureNodes: ArchitectureNode[] = [
   { id: "mongo", title: "MongoDB", detail: "Editions and narrations", x: 900, y: 248, width: 180, height: 84, mobile: m(18, 280) },
   { id: "idp", title: "Syed Faaiz IdP", detail: "Admin sign-in", x: 900, y: 48, width: 180, height: 78, mobile: m(198, 280) },
   { id: "admin", title: "Administrator", detail: "Role ADMIN", x: 36, y: 484, width: 180, height: 78, mobile: m(18, 410) },
-  { id: "source", title: "QuranEnc", detail: "Optional import", x: 700, y: 484, width: 170, height: 78, mobile: m(108, 410) },
+  { id: "source", title: "QuranEnc", detail: "Optional import", x: 700, y: 484, width: 170, height: 78, mobile: m(198, 410) },
 ];
 
 const architectureEdges: ArchitectureEdge[] = [

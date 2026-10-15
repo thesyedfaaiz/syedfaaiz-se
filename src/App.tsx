@@ -125,24 +125,24 @@ function Portfolio() {
 
         <AboutSyedFaaiz />
 
-        <section className="border-b border-border bg-card-muted" aria-label="Professional snapshot">
-          <div className="mx-auto grid w-full max-w-7xl grid-cols-2 px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
+        <section className="mx-auto w-full max-w-7xl px-4 pb-14 sm:px-6 sm:pb-16 lg:px-8 lg:pb-20" aria-label="Professional snapshot">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4">
             {[
-              ["2+", "Years professional experience"],
-              ["15+", "Products / major workflows delivered"],
-              ["AI + SaaS", "Primary engineering focus"],
-              ["Frontend → Cloud", "End-to-end product delivery"],
+              ["2+ years", "Professional experience"],
+              ["15+", "Products and workflows delivered"],
+              ["AI & SaaS", "Engineering focus"],
+              ["End to end", "Interface to cloud delivery"],
             ].map(([value, label], index) => (
               <motion.div
                 key={value}
-                className={`py-6 sm:py-8 ${index % 2 === 0 ? "pr-4" : "pl-4"} ${index > 0 ? "lg:border-l lg:border-border lg:pl-7 " : ""}`}
+                className="rounded-lg border border-border bg-card px-4 py-4 sm:px-5 sm:py-5"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.07 }}
               >
-                <strong className="block text-xl font-black tracking-tight text-fg-strong sm:text-2xl ">{value}</strong>
-                <span className="mt-1 block max-w-[180px] text-xs leading-5 text-fg-muted sm:text-sm ">{label}</span>
+                <strong className="block text-lg font-semibold tracking-tight text-fg-strong sm:text-xl">{value}</strong>
+                <span className="mt-1 block text-xs leading-5 text-fg-muted sm:text-sm">{label}</span>
               </motion.div>
             ))}
           </div>
@@ -158,11 +158,11 @@ function Portfolio() {
                 Hands-on from interface implementation and backend services through third-party integrations, deployment, and operational handover.
               </p>
             </div>
-            <div className="grid gap-2 sm:grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               {["Multi-tenant SaaS architecture", "Role-based access control", "AI document pipelines", "RAG and embeddings", "CRM automation", "API integrations", "Dashboard development", "Cloud deployment"].map((item, index) => (
-                <div key={item} className="flex min-h-20 items-start gap-3 rounded-lg border border-border bg-card p-4">
+                <div key={item} className="flex min-h-20 items-start gap-2.5 rounded-lg border border-border bg-card p-3 sm:gap-3 sm:p-4">
                   <span className="mt-0.5 text-[10px] font-black text-primary-text ">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="text-sm font-semibold leading-6 text-fg ">{item}</span>
+                  <span className="text-xs font-semibold leading-5 text-fg sm:text-sm sm:leading-6">{item}</span>
                 </div>
               ))}
             </div>

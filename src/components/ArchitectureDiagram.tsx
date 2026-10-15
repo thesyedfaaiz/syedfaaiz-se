@@ -40,6 +40,7 @@ export type ArchitectureEdge = {
   to: string;
   path: string;
   mobilePath?: string;
+  useDefinedPath?: boolean;
 };
 
 export type ArchitectureFlow = {
@@ -76,6 +77,7 @@ type DiagramCanvasProps = {
   description: string;
   idPrefix: string;
   className: string;
+  mobile?: boolean;
 };
 
 type NodeSide = "top" | "right" | "bottom" | "left";
@@ -189,6 +191,7 @@ function DiagramCanvas({
   description,
   idPrefix,
   className,
+  mobile = false,
 }: DiagramCanvasProps) {
   const reduceMotion = useReducedMotion();
   const markerId = `${idPrefix}-arrow`;
@@ -228,7 +231,7 @@ function DiagramCanvas({
         const source = nodesById.get(edge.from);
         const destination = nodesById.get(edge.to);
         if (!source || !destination) return null;
-        const path = routeEdge(source, destination);
+        const path = edge.useDefinedPath ? (mobile ? edge.mobilePath ?? edge.path : edge.path) : routeEdge(source, destination);
         return (
           <g key={`${edge.id}-active`}>
             <path
@@ -248,7 +251,7 @@ function DiagramCanvas({
               strokeLinecap="round"
               strokeDasharray="8 14"
               markerEnd={`url(#${markerId})`}
-              initial={false}
+              initial={{ strokeDashoffset: 0 }}
               animate={reduceMotion ? { strokeDashoffset: 0 } : { strokeDashoffset: [0, -44] }}
               transition={reduceMotion ? { duration: 0 } : { duration: 1.3, ease: "linear", repeat: Infinity }}
             />
@@ -260,9 +263,13 @@ function DiagramCanvas({
         const active = activeNodes.has(node.id);
         const box = node;
         const Icon = iconForNode(node);
-        const iconSize = 18;
-        const titleX = box.x + 45;
-        const titleY = box.y + 25;
+        const iconSize = mobile ? 15 : 18;
+        const titleX = box.x + (mobile ? 30 : 45);
+        const titleY = box.y + (mobile ? 21 : 25);
+        const titleParts = mobile && node.title.length > 13 ? node.title.split(" ") : [node.title];
+        const titleLines = titleParts.length > 1
+          ? [titleParts.slice(0, Math.ceil(titleParts.length / 2)).join(" "), titleParts.slice(Math.ceil(titleParts.length / 2)).join(" ")]
+          : titleParts;
         return (
           <motion.g key={node.id} animate={{ opacity: active ? 1 : 0.5 }} transition={{ duration: 0.2 }}>
             <rect
@@ -270,26 +277,26 @@ function DiagramCanvas({
               y={box.y}
               width={box.width}
               height={box.height}
-              rx={18}
-              fill={active ? "var(--color-primary-subtle)" : "var(--color-card-muted)"}
+              rx={mobile ? 12 : 18}
+              fill="var(--color-card-muted)"
               stroke={active ? accentColor : "var(--color-border-strong)"}
               strokeWidth={active ? "1.6" : "1"}
               vectorEffect="non-scaling-stroke"
             />
             <Icon
-              x={box.x + 16}
-              y={box.y + 13}
+              x={box.x + (mobile ? 9 : 16)}
+              y={box.y + (mobile ? 9 : 13)}
               width={iconSize}
               height={iconSize}
               color={active ? accentColor : "var(--color-fg-muted)"}
               strokeWidth={2}
               aria-hidden="true"
             />
-            <text x={titleX} y={titleY} fill={active ? accentTextColor : "var(--color-fg-strong)"} fontSize="15" fontWeight="700">
-              {node.title}
+            <text x={titleX} y={titleY - (titleLines.length > 1 ? 6 : 0)} fill={active ? accentTextColor : "var(--color-fg-strong)"} fontSize={mobile ? 13 : 15} fontWeight="700">
+              {titleLines.map((line, index) => <tspan key={`${line}-${index}`} x={titleX} dy={index === 0 ? 0 : mobile ? 13 : 14}>{line}</tspan>)}
             </text>
             {node.detail && (
-              <text x={box.x + 16} y={box.y + 56} fill={active ? "var(--color-fg)" : "var(--color-fg-muted)"} fontSize="12">
+              <text x={box.x + (mobile ? 9 : 16)} y={box.y + (mobile ? 44 : 56)} fill={active ? "var(--color-fg)" : "var(--color-fg-muted)"} fontSize={mobile ? 10 : 12} textLength={mobile && node.detail.length > 21 ? box.width - 18 : undefined} lengthAdjust="spacingAndGlyphs">
                 {node.detail}
               </text>
             )}
@@ -327,11 +334,20 @@ export default function ArchitectureDiagram({
     });
     return ids;
   }, [activeEdges, activeFlow, edges]);
+  const mobileNodes = useMemo(() => nodes.map((node) => {
+    if (!node.mobile) return node;
+    return {
+      ...node,
+      x: node.mobile.x + node.mobile.width / 2 - 63,
+      y: node.mobile.y,
+      width: 126,
+      height: 52,
+    };
+  }), [nodes]);
 
   if (!activeFlow) return null;
 
   const canvasProps = {
-    nodes,
     edges,
     activeEdges,
     activeNodes,
@@ -339,14 +355,13 @@ export default function ArchitectureDiagram({
     accentTextColor,
     ariaLabel,
     description,
-    idPrefix: `architecture-${reactId}`,
   };
 
   return (
     <div className={`overflow-hidden rounded-[1.5rem] border border-border bg-card text-fg shadow-xl ${className}`}>
       {flows.length > 1 && (
         <div className="border-b border-border p-3 sm:p-4">
-          <div className="flex gap-2 overflow-x-auto sm:flex-wrap sm:justify-center sm:overflow-visible" role="group" aria-label="Architecture workflow">
+          <div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Architecture workflow">
             {flows.map((flow) => (
               <button
                 key={flow.id}
@@ -367,10 +382,11 @@ export default function ArchitectureDiagram({
         </div>
       )}
 
-      <p className="border-b border-border px-4 py-3 text-center text-sm leading-6 text-fg-muted sm:px-8">{activeFlow.summary}</p>
+      <p className="px-4 py-3 text-center text-sm leading-6 text-fg-muted sm:px-8">{activeFlow.summary}</p>
 
       <div className="relative mx-auto w-full max-w-[960px]">
-        <DiagramCanvas {...canvasProps} viewBox={viewBox} className="block h-auto w-full" />
+        <DiagramCanvas {...canvasProps} nodes={mobileNodes} viewBox={mobileViewBox} idPrefix={`architecture-${reactId}-mobile`} className="mx-auto block h-auto w-full max-w-[480px] lg:hidden" mobile />
+        <DiagramCanvas {...canvasProps} nodes={nodes} viewBox={viewBox} idPrefix={`architecture-${reactId}-desktop`} className="hidden h-auto w-full lg:block" />
       </div>
     </div>
   );

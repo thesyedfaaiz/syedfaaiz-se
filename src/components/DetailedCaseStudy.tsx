@@ -52,8 +52,8 @@ function SectionHeading({ kickerClass, kicker, title, copy }: { kickerClass: str
   return (
     <div className="max-w-3xl">
       <span className={`text-xs font-black uppercase tracking-[0.2em] ${kickerClass}`}>{kicker}</span>
-      <h2 className="mt-4 text-3xl font-semibold tracking-[-0.045em] sm:text-4xl lg:text-5xl">{title}</h2>
-      {copy && <p className="mt-5 text-base leading-8 text-fg-muted ">{copy}</p>}
+      <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] sm:text-3xl lg:text-4xl">{title}</h2>
+      {copy && <p className="mt-3 text-sm leading-7 text-fg-muted sm:text-base">{copy}</p>}
     </div>
   );
 }
@@ -103,16 +103,16 @@ export default function DetailedCaseStudy({ project, study }: { project: Project
               </a>
             )}
           </div>
-          <dl className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="mt-6 grid grid-cols-2 gap-2 lg:grid-cols-4">
             {study.snapshots.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.label} className="min-w-0 rounded-lg border border-border bg-card p-4">
-                  <dt className="flex items-center gap-2 text-xs text-fg-muted">
+                <div key={item.label} className="min-w-0 rounded-lg border border-border bg-card p-3">
+                  <dt className="flex items-start gap-1.5 text-xs leading-4 text-fg-muted sm:items-center sm:gap-2">
                     <Icon className="size-4 shrink-0 text-primary-text" aria-hidden="true" />
                     {item.label}
                   </dt>
-                  <dd className="mt-2 break-words text-sm font-semibold text-fg-strong">{item.value}</dd>
+                  <dd className="mt-1.5 break-words text-xs font-semibold text-fg-strong sm:text-sm">{item.value}</dd>
                 </div>
               );
             })}
@@ -120,46 +120,45 @@ export default function DetailedCaseStudy({ project, study }: { project: Project
         </CaseStudyPageHeader>
       </div>
 
-      <section id="problem" className="mx-auto grid w-full max-w-7xl scroll-mt-28 gap-8 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:gap-5 lg:px-8 lg:py-18">
-        <article className="rounded-xl border border-border bg-card p-6 sm:p-9">
-          <span className="grid size-12 place-items-center rounded-lg bg-danger-subtle text-danger-text  ">
-            <ProblemIcon className="size-6" />
+      <section id="problem" className="mx-auto grid w-full max-w-6xl scroll-mt-28 gap-4 px-4 py-10 sm:px-6 sm:py-12 lg:grid-cols-2 lg:px-8 lg:py-14">
+        <article className="rounded-xl border border-border bg-card p-5 sm:p-6">
+          <span className="grid size-10 place-items-center rounded-lg bg-danger-subtle text-danger-text">
+            <ProblemIcon className="size-5" />
           </span>
-          <span className="mt-7 block text-xs font-black uppercase tracking-[0.2em] text-danger-text ">The problem</span>
-          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">{study.problem.title}</h2>
-          <p className="mt-5 text-sm leading-7 text-fg-muted sm:text-base ">{study.problem.copy}</p>
+          <span className="mt-4 block text-xs font-bold uppercase tracking-[0.14em] text-danger-text">The problem</span>
+          <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] sm:text-2xl">{study.problem.title}</h2>
+          <p className="mt-3 text-sm leading-6 text-fg-muted">{study.problem.copy}</p>
         </article>
-        <article className={`rounded-xl border border-border p-6 text-fg sm:p-9 ${theme.panel}`}>
-          <span className={`grid size-12 place-items-center rounded-lg ${theme.solutionIcon}`}>
-            <SolutionIcon className="size-6" />
+        <article className={`rounded-xl border border-border p-5 text-fg sm:p-6 ${theme.panel}`}>
+          <span className={`grid size-10 place-items-center rounded-lg ${theme.solutionIcon}`}>
+            <SolutionIcon className="size-5" />
           </span>
-          <span className={`mt-7 block text-xs font-black uppercase tracking-[0.2em] ${theme.solutionKicker}`}>The solution</span>
-          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">{study.solution.title}</h2>
-          <p className="mt-5 text-sm leading-7 text-fg-muted sm:text-base">{study.solution.copy}</p>
+          <span className={`mt-4 block text-xs font-bold uppercase tracking-[0.14em] ${theme.solutionKicker}`}>The solution</span>
+          <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] sm:text-2xl">{study.solution.title}</h2>
+          <p className="mt-3 text-sm leading-6 text-fg-muted">{study.solution.copy}</p>
         </article>
       </section>
 
       <section id="capabilities" className="scroll-mt-28 border-y border-border bg-bg-muted  ">
-        <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
+        <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
           <SectionHeading kickerClass={theme.kicker} kicker="01 / Product system" title={study.product.title} copy={study.product.copy} />
-          <div className={`mt-10 grid gap-4 md:grid-cols-2 ${capabilityColumns}`}>
+          <div className={`mt-7 grid grid-cols-2 gap-2 sm:gap-3 ${capabilityColumns}`}>
             {study.capabilities.map((capability, index) => {
               const Icon = capability.icon;
               return (
                 <motion.article
                   key={capability.title}
-                  className="rounded-lg border border-border bg-card p-5"
+                  className="min-w-0 rounded-lg border border-border bg-card p-3 sm:p-4"
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
                 >
-                  <span className={`grid size-10 place-items-center rounded-xl ${theme.capabilityIcon}`}>
-                    <Icon className="size-5" />
+                  <span className={`grid size-8 place-items-center rounded-lg sm:size-9 ${theme.capabilityIcon}`}>
+                    <Icon className="size-4" />
                   </span>
-                  <span className="mt-8 block text-[10px] font-black text-fg-muted">0{index + 1}</span>
-                  <h3 className="mt-2 text-lg font-semibold tracking-tight">{capability.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-fg-muted ">{capability.copy}</p>
+                  <h3 className="mt-3 text-sm font-semibold leading-5 tracking-tight sm:mt-4 sm:text-base">{capability.title}</h3>
+                  <p className="mt-2 text-xs leading-5 text-fg-muted sm:text-sm sm:leading-6">{capability.copy}</p>
                 </motion.article>
               );
             })}
@@ -168,7 +167,7 @@ export default function DetailedCaseStudy({ project, study }: { project: Project
       </section>
 
       {study.architecture && (
-        <section id="architecture" className="mx-auto w-full max-w-7xl scroll-mt-28 px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
+        <section id="architecture" className="mx-auto w-full max-w-7xl scroll-mt-28 px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
           <SectionHeading kickerClass={theme.kicker} kicker="02 / Interactive architecture" title={study.architecture.title} copy={study.architecture.copy} />
           <ArchitectureDiagram
             className="mt-8"
@@ -187,16 +186,16 @@ export default function DetailedCaseStudy({ project, study }: { project: Project
       )}
 
       <section id="challenges" className="scroll-mt-28 border-y border-border bg-bg-muted  ">
-        <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
+        <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
           <SectionHeading kickerClass={theme.kicker} kicker={challengesKicker} title={study.challengesIntro.title} copy={study.challengesIntro.copy} />
-          <div className="mt-10 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
+          <div className="mt-6 divide-y divide-border overflow-hidden rounded-xl border border-border bg-card">
             {study.challenges.map((challenge) => (
-              <article key={challenge.number} className="grid gap-5 p-6 sm:p-8 lg:grid-cols-[70px_0.8fr_1.2fr] lg:gap-8">
-                <span className={`text-3xl font-black leading-none tracking-tight sm:text-4xl ${theme.challengeNumber}`}>{challenge.number}</span>
-                <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">{challenge.title}</h3>
-                <div>
-                  <p className="text-sm leading-7 text-fg-muted ">{challenge.copy}</p>
-                  <p className="mt-4 flex items-start gap-2 text-sm font-semibold leading-6 text-fg ">
+              <article key={challenge.number} className="grid grid-cols-[40px_minmax(0,1fr)] items-start gap-x-3 gap-y-2 p-4 sm:p-5 lg:grid-cols-[48px_0.85fr_1.3fr] lg:gap-x-5">
+                <span className={`text-3xl font-black leading-none tracking-tight ${theme.challengeNumber}`}>{challenge.number}</span>
+                <h3 className="text-base font-semibold tracking-tight sm:text-lg">{challenge.title}</h3>
+                <div className="col-start-2 lg:col-auto">
+                  <p className="text-sm leading-6 text-fg-muted">{challenge.copy}</p>
+                  <p className="mt-2 flex items-start gap-2 text-sm font-semibold leading-6 text-fg">
                     <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-success text-success-fg" aria-hidden="true">
                       <Check className="size-3.5" strokeWidth={3} />
                     </span>
@@ -209,16 +208,16 @@ export default function DetailedCaseStudy({ project, study }: { project: Project
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
-        <div className={`relative overflow-hidden rounded-xl p-7 text-fg sm:p-10 lg:p-14 ${theme.closer}`}>
-          <Sparkles className="absolute -right-10 -top-12 size-52 text-fg/[0.07]" aria-hidden="true" />
-          <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <section className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
+        <div className={`relative overflow-hidden rounded-xl p-5 text-fg sm:p-7 lg:p-8 ${theme.closer}`}>
+          <Sparkles className="absolute -right-8 -top-10 size-40 text-fg/[0.07]" aria-hidden="true" />
+          <div className="relative flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <span className={`text-xs font-black uppercase tracking-[0.2em] ${theme.closerKicker}`}>Engineering lens</span>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.045em] sm:text-4xl">{study.closer.title}</h2>
-              <p className="mt-5 max-w-2xl text-sm leading-7 text-fg-muted sm:text-base">{study.closer.copy}</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">{study.closer.title}</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-fg-muted sm:text-base">{study.closer.copy}</p>
             </div>
-            <a href="/case-studies" className={`inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-card px-5 py-3 text-sm font-bold transition ${theme.closerButton}`}>
+            <a href="/case-studies" className={`inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-lg bg-card px-4 py-2 text-sm font-semibold transition ${theme.closerButton}`}>
               Explore more work <ArrowUpRight className="size-4" />
             </a>
           </div>

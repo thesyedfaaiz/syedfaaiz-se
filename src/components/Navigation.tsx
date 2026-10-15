@@ -81,7 +81,7 @@ export default function Navigation() {
         <AnimatePresence>
           {open && (
             <motion.div className="fixed inset-x-0 bottom-0 top-16 z-40 lg:hidden" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }}>
-              <button type="button" className="absolute inset-0 bg-scrim/55" onClick={() => setOpen(false)} aria-label="Close navigation menu" tabIndex={-1} />
+              <button type="button" className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={() => setOpen(false)} aria-label="Close navigation menu" tabIndex={-1} />
               <nav id="mobile-navigation" aria-label="Mobile navigation" className="relative max-h-full overflow-y-auto border-b border-border bg-card px-4 py-3 sm:px-6">
                 <div className="mx-auto grid max-w-7xl gap-1">
                   {links.map(([id, label]) => (

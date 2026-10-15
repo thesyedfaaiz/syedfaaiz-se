@@ -45,7 +45,7 @@ const architectureEdges: ArchitectureEdge[] = [
   { id: "analytics-mongo", from: "analytics", to: "mongo", path: "M190 556 L480 556", mobilePath: "M90 428 L90 540" },
   { id: "intel-mongo", from: "intel", to: "mongo", path: "M425 556 L480 556", mobilePath: "M196 428 C132 470 102 504 90 540" },
   { id: "stripe-webhook", from: "stripe", to: "api", path: "M740 370 C680 430 650 350 650 280", mobilePath: "M196 307 C340 350 340 245 252 230" },
-  { id: "valkey-api", from: "valkey", to: "api", path: "M950 520 C1050 420 840 350 660 280", mobilePath: "M270 540 C350 450 330 260 252 230" },
+  { id: "valkey-api", from: "valkey", to: "api", useDefinedPath: true, path: "M1040 520 C1040 280 810 238 660 238", mobilePath: "M300 540 C300 524 346 524 346 504 L346 260 C346 232 308 214 243 214" },
 ];
 
 const architectureFlows: ArchitectureFlow[] = [
