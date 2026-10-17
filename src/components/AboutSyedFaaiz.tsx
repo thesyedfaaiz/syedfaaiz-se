@@ -25,17 +25,17 @@ export default function AboutSyedFaaiz() {
             id="about-syed-faaiz-title"
             className="mt-3 text-balance text-3xl font-semibold tracking-tight text-fg-strong sm:text-4xl"
           >
-            I’m Syed Faaiz.
+            Meet Syed Faaiz.
           </h2>
           <p className="mt-5 max-w-xl leading-8 text-fg-muted">
-            Syed Faaiz, professionally known as Syed Faizan Hussain Hashmi, is a software engineer and Taekwondo
-            black belt who practices arm wrestling and calisthenics.
+            His full name is Syed Faizan Hussain Hashmi. A software engineer and Taekwondo black
+            belt, he also practices arm wrestling and calisthenics.
           </p>
           <a
             href="https://syedfaaiz.com/about"
             className="mt-7 inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-fg transition hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
-            Read my full story
+            Read his full story
             <ArrowUpRight aria-hidden="true" className="size-4" />
           </a>
         </div>

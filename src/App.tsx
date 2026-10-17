@@ -101,7 +101,7 @@ function Portfolio() {
                 transition={{ delay: 0.36 }}
               >
                 <a className={primaryButton} href="#projects">
-                  Explore my work
+                  Explore Syed Faaiz's work
                   <ArrowRight className="size-4" />
                 </a>
                 <a className={secondaryButton} href="#experience">
@@ -148,7 +148,7 @@ function Portfolio() {
           </div>
         </section>
 
-        <Section id="about" kicker="01 / Profile" title="I build across the product stack.">
+        <Section id="about" kicker="01 / Profile" title="Syed Faaiz builds across the product stack.">
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div className="space-y-6 text-xl leading-9 tracking-[-0.02em] text-fg sm:text-2xl sm:leading-10 ">
               <p>
@@ -265,7 +265,7 @@ function Portfolio() {
         </Section>
 
         <div className="border-t border-border">
-          <Section id="contact" kicker="09 / Let's connect" title="Let's build something that matters.">
+          <Section id="contact" kicker="09 / Get in touch" title="Start a meaningful collaboration.">
             <div className="grid gap-8 rounded-xl border border-border bg-card p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10">
               <div>
                 <p className="max-w-2xl text-base leading-8 text-fg-muted sm:text-lg ">Open to software engineering opportunities, SaaS development, AI application development, product engineering and technical collaborations.</p>
