@@ -36,7 +36,7 @@ export const site: SeoSite = { origin: engineeringSite, name: "Syed Faaiz — En
     image: "/images/syed-faaiz-engineering-portrait.webp", imageAlt: "Portrait of Syed Faaiz, software engineer", imageWidth: 640, imageHeight: 800,
     schema: [
       person,
-      { "@type": "ProfilePage", "@id": engineeringSite + "/#profile", url: engineeringSite + "/", name: "Syed Faaiz — Software Engineer & AI Application Developer", description: "Engineering profile, experience, education, and case studies by Syed Faaiz.", image: engineeringSite + "/images/syed-faaiz-engineering-portrait.webp", dateModified: "2026-09-23", mainEntity: { "@id": person["@id"] } },
+      { "@type": "ProfilePage", "@id": engineeringSite + "/#profile", url: engineeringSite + "/", name: "Syed Faaiz — Software Engineer & AI Application Developer", description: "Engineering profile, experience, education, and case studies by Syed Faaiz.", image: engineeringSite + "/images/syed-faaiz-engineering-portrait.webp", dateModified: "2026-09-23T00:00:00+05:00", mainEntity: { "@id": person["@id"] } },
       { "@type": "WebSite", "@id": engineeringSite + "/#website", name: "Syed Faaiz — Engineering", url: engineeringSite + "/", creator: { "@id": person["@id"] }, publisher: { "@id": person["@id"] } },
     ],
     sections: [
