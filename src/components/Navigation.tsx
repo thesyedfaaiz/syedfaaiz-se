@@ -67,7 +67,7 @@ export default function Navigation() {
         </div>
 
         <div className="flex items-center gap-1.5">
-          <ThemeChooser showActiveTheme={false} label="Theme" ariaLabel="Choose portfolio theme" className="!rounded-lg" />
+          <ThemeChooser showActiveTheme={false} ariaLabel="Choose portfolio theme" className="!rounded-lg" />
           <AppLauncher />
           <a href={githubUrl} target="_blank" rel="noreferrer" className={`${iconLink} hidden sm:grid`} aria-label="GitHub"><Github className="size-4" /></a>
           <a href={linkedInUrl} target="_blank" rel="noreferrer" className={`${iconLink} hidden sm:grid`} aria-label="LinkedIn"><Linkedin className="size-4" /></a>
